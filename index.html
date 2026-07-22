@@ -713,25 +713,29 @@
     .float-hearts span:nth-child(1) {
       left: 8%;
       animation-delay: 0s;
-      font-size: 1.7rem;
+      width: 1.7rem;
+      height: 1.7rem;
     }
 
     .float-hearts span:nth-child(2) {
       left: 26%;
       animation-delay: 5s;
-      font-size: 1.1rem;
+      width: 1.1rem;
+      height: 1.1rem;
     }
 
     .float-hearts span:nth-child(3) {
       left: 67%;
       animation-delay: 2s;
-      font-size: 1.5rem;
+      width: 1.5rem;
+      height: 1.5rem;
     }
 
     .float-hearts span:nth-child(4) {
       left: 88%;
       animation-delay: 8s;
-      font-size: 1.2rem;
+      width: 1.2rem;
+      height: 1.2rem;
     }
 
     @keyframes drift {
@@ -985,6 +989,11 @@
       .sign {
         font-size: clamp(1.2rem, 4vw, 1.8rem);
       }
+
+      .float-hearts span:nth-child(1) { width: 0.9rem; height: 0.9rem; }
+      .float-hearts span:nth-child(2) { width: 0.6rem; height: 0.6rem; }
+      .float-hearts span:nth-child(3) { width: 0.8rem; height: 0.8rem; }
+      .float-hearts span:nth-child(4) { width: 0.7rem; height: 0.7rem; }
 
       .footer { padding: 2.5rem 0; }
     }
