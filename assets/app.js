@@ -6,10 +6,6 @@
 
   function pad(n) { return String(n).padStart(2, "0"); }
 
-  function formatDate(d) {
-    return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
-  }
-
   function fmtDisplay(dateStr) {
     var p = dateStr.split("-");
     return p[0] + "." + pad(p[1]) + "." + pad(p[2]);
@@ -27,13 +23,10 @@
     });
   }
 
-  function getStore(key, fallback) {
-    try { return JSON.parse(localStorage.getItem(key)) || fallback; }
-    catch (e) { return fallback; }
-  }
-
-  function setStore(key, val) {
-    localStorage.setItem(key, JSON.stringify(val));
+  function escHtml(s) {
+    var d = document.createElement("div");
+    d.textContent = s || "";
+    return d.innerHTML;
   }
 
   /* ===== 默认数据 ===== */
@@ -67,7 +60,81 @@
     { id: "w4", title: "跨年", note: "倒数的时候，身边是你。", done: true }
   ];
 
-  /* ===== 数据读取 ===== */
+  /* ===== Cloud Sync (Firebase REST API) ===== */
+
+  var CloudSync = {
+    getConfig: function () {
+      try {
+        return JSON.parse(localStorage.getItem("couple-cloud-config")) || {};
+      } catch (e) { return {}; }
+    },
+    setConfig: function (cfg) {
+      localStorage.setItem("couple-cloud-config", JSON.stringify(cfg));
+    },
+    isReady: function () {
+      var c = this.getConfig();
+      return !!(c.url && c.url.trim() && c.key && c.key.trim());
+    },
+    getUrl: function (path) {
+      var c = this.getConfig();
+      var base = c.url.replace(/\/$/, "");
+      return base + "/couples/" + encodeURIComponent(c.key) + "/" + path + ".json";
+    },
+    fetchJson: function (url, opts) {
+      return fetch(url, opts).then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      });
+    },
+    pull: function () {
+      if (!this.isReady()) return Promise.resolve(null);
+      var self = this;
+      return this.fetchJson(this.getUrl("")).then(function (data) {
+        if (!data) return null;
+        if (data.startDate !== undefined) localStorage.setItem("couple-start", data.startDate);
+        if (data.anniversaries !== undefined) localStorage.setItem("couple-ann", JSON.stringify(data.anniversaries));
+        if (data.memories !== undefined) localStorage.setItem("couple-mem", JSON.stringify(data.memories));
+        if (data.timeline !== undefined) localStorage.setItem("couple-tl", JSON.stringify(data.timeline));
+        if (data.wishes !== undefined) localStorage.setItem("couple-wish", JSON.stringify(data.wishes));
+        return data;
+      }).catch(function (err) {
+        console.warn("Cloud pull failed:", err);
+        return null;
+      });
+    },
+    push: function () {
+      if (!this.isReady()) return Promise.resolve(false);
+      var payload = {
+        startDate: localStorage.getItem("couple-start") || DEFAULT_START,
+        anniversaries: getStore("couple-ann", DEFAULT_ANNIVERSARIES),
+        memories: getStore("couple-mem", DEFAULT_MEMORIES),
+        timeline: getStore("couple-tl", DEFAULT_TIMELINE),
+        wishes: getStore("couple-wish", DEFAULT_WISHES)
+      };
+      return this.fetchJson(this.getUrl(""), {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).then(function () { return true; }).catch(function (err) {
+        console.warn("Cloud push failed:", err);
+        return false;
+      });
+    }
+  };
+
+  /* ===== 本地存储 ===== */
+
+  function getStore(key, fallback) {
+    try { return JSON.parse(localStorage.getItem(key)) || fallback; }
+    catch (e) { return fallback; }
+  }
+
+  function setStore(key, val) {
+    localStorage.setItem(key, JSON.stringify(val));
+    if (CloudSync.isReady()) {
+      CloudSync.push().catch(function () {});
+    }
+  }
 
   function getStartDate() { return localStorage.getItem("couple-start") || DEFAULT_START; }
   function getAnniversaries() { return getStore("couple-ann", DEFAULT_ANNIVERSARIES); }
@@ -194,14 +261,6 @@
     });
   }
 
-  /* ===== HTML 转义 ===== */
-
-  function escHtml(s) {
-    var d = document.createElement("div");
-    d.textContent = s || "";
-    return d.innerHTML;
-  }
-
   /* ===== 管理模式：Tab 切换 ===== */
 
   function initAdminTabs() {
@@ -227,6 +286,7 @@
       if (!input.value) return;
       localStorage.setItem("couple-start", input.value);
       updateTogether();
+      CloudSync.push().catch(function () {});
       btn.textContent = "已保存";
       setTimeout(function () { btn.textContent = "保存并刷新"; }, 1200);
     });
@@ -248,14 +308,8 @@
         var el = document.createElement("div");
         el.className = "admin-item";
         el.innerHTML =
-          '<div class="admin-item-info">' +
-          '<h4>' + escHtml(item.title) + '</h4>' +
-          '<p>' + fmtDisplay(item.date) + '</p>' +
-          '</div>' +
-          '<div class="admin-item-actions">' +
-          '<button class="btn-edit" data-id="' + item.id + '">编辑</button>' +
-          '<button class="btn-delete" data-id="' + item.id + '">删除</button>' +
-          '</div>';
+          '<div class="admin-item-info"><h4>' + escHtml(item.title) + '</h4><p>' + fmtDisplay(item.date) + '</p></div>' +
+          '<div class="admin-item-actions"><button class="btn-edit" data-id="' + item.id + '">编辑</button><button class="btn-delete" data-id="' + item.id + '">删除</button></div>';
         list.appendChild(el);
       });
     }
@@ -265,10 +319,8 @@
       var items = getAnniversaries();
       items.push({ id: uid(), date: dateInput.value, title: titleInput.value.trim() });
       setStore("couple-ann", items);
-      dateInput.value = "";
-      titleInput.value = "";
-      renderList();
-      renderAnniversaryPage();
+      dateInput.value = ""; titleInput.value = "";
+      renderList(); renderAnniversaryPage();
     });
 
     list.addEventListener("click", function (e) {
@@ -278,8 +330,7 @@
       var items = getAnniversaries();
       if (btn.classList.contains("btn-delete")) {
         setStore("couple-ann", items.filter(function (i) { return i.id !== id; }));
-        renderList();
-        renderAnniversaryPage();
+        renderList(); renderAnniversaryPage();
       }
       if (btn.classList.contains("btn-edit")) {
         var item = items.find(function (i) { return i.id === id; });
@@ -298,15 +349,11 @@
           var newDate = row.querySelector(".edit-date").value;
           var newTitle = row.querySelector(".edit-title").value.trim();
           if (!newDate || !newTitle) return;
-          item.date = newDate;
-          item.title = newTitle;
+          item.date = newDate; item.title = newTitle;
           setStore("couple-ann", items);
-          renderList();
-          renderAnniversaryPage();
+          renderList(); renderAnniversaryPage();
         });
-        row.querySelector(".btn-cancel-edit").addEventListener("click", function () {
-          row.remove();
-        });
+        row.querySelector(".btn-cancel-edit").addEventListener("click", function () { row.remove(); });
       }
     });
 
@@ -331,15 +378,8 @@
         el.className = "admin-item";
         var imgHtml = item.image ? '<img src="' + item.image + '" alt="">' : '';
         el.innerHTML =
-          '<div class="admin-item-info">' +
-          '<h4>' + escHtml(item.title) + '</h4>' +
-          '<p>' + escHtml(item.text) + '</p>' +
-          imgHtml +
-          '</div>' +
-          '<div class="admin-item-actions">' +
-          '<button class="btn-edit" data-id="' + item.id + '">编辑</button>' +
-          '<button class="btn-delete" data-id="' + item.id + '">删除</button>' +
-          '</div>';
+          '<div class="admin-item-info"><h4>' + escHtml(item.title) + '</h4><p>' + escHtml(item.text) + '</p>' + imgHtml + '</div>' +
+          '<div class="admin-item-actions"><button class="btn-edit" data-id="' + item.id + '">编辑</button><button class="btn-delete" data-id="' + item.id + '">删除</button></div>';
         list.appendChild(el);
       });
     }
@@ -348,20 +388,12 @@
       if (!titleInput.value.trim() || !textInput.value.trim()) return;
       var file = imageInput.files ? imageInput.files[0] : null;
       var imageData = "";
-      try { imageData = await readImageAsDataUrl(file); } catch (e) { /* ignore */ }
+      try { imageData = await readImageAsDataUrl(file); } catch (e) { }
       var items = getMemories();
-      items.push({
-        id: uid(),
-        title: titleInput.value.trim(),
-        text: textInput.value.trim(),
-        image: imageData
-      });
+      items.push({ id: uid(), title: titleInput.value.trim(), text: textInput.value.trim(), image: imageData });
       setStore("couple-mem", items);
-      titleInput.value = "";
-      textInput.value = "";
-      imageInput.value = "";
-      renderList();
-      renderMemoriesPage();
+      titleInput.value = ""; textInput.value = ""; imageInput.value = "";
+      renderList(); renderMemoriesPage();
     });
 
     list.addEventListener("click", function (e) {
@@ -371,8 +403,7 @@
       var items = getMemories();
       if (btn.classList.contains("btn-delete")) {
         setStore("couple-mem", items.filter(function (i) { return i.id !== id; }));
-        renderList();
-        renderMemoriesPage();
+        renderList(); renderMemoriesPage();
       }
       if (btn.classList.contains("btn-edit")) {
         var item = items.find(function (i) { return i.id === id; });
@@ -393,14 +424,12 @@
           var newText = row.querySelector(".edit-text").value.trim();
           var newFile = row.querySelector(".edit-image").files ? row.querySelector(".edit-image").files[0] : null;
           if (!newTitle || !newText) return;
-          item.title = newTitle;
-          item.text = newText;
+          item.title = newTitle; item.text = newText;
           if (newFile) {
-            try { item.image = await readImageAsDataUrl(newFile); } catch (e) { /* keep old */ }
+            try { item.image = await readImageAsDataUrl(newFile); } catch (e) { }
           }
           setStore("couple-mem", items);
-          renderList();
-          renderMemoriesPage();
+          renderList(); renderMemoriesPage();
         });
         row.querySelector(".btn-cancel-edit").addEventListener("click", function () { row.remove(); });
       }
@@ -427,14 +456,8 @@
         var el = document.createElement("div");
         el.className = "admin-item";
         el.innerHTML =
-          '<div class="admin-item-info">' +
-          '<h4>' + escHtml(item.title) + '</h4>' +
-          '<p>' + fmtDisplay(item.date) + ' — ' + escHtml(item.text) + '</p>' +
-          '</div>' +
-          '<div class="admin-item-actions">' +
-          '<button class="btn-edit" data-id="' + item.id + '">编辑</button>' +
-          '<button class="btn-delete" data-id="' + item.id + '">删除</button>' +
-          '</div>';
+          '<div class="admin-item-info"><h4>' + escHtml(item.title) + '</h4><p>' + fmtDisplay(item.date) + ' — ' + escHtml(item.text) + '</p></div>' +
+          '<div class="admin-item-actions"><button class="btn-edit" data-id="' + item.id + '">编辑</button><button class="btn-delete" data-id="' + item.id + '">删除</button></div>';
         list.appendChild(el);
       });
     }
@@ -444,11 +467,8 @@
       var items = getTimeline();
       items.push({ id: uid(), date: dateInput.value, title: titleInput.value.trim(), text: textInput.value.trim() });
       setStore("couple-tl", items);
-      dateInput.value = "";
-      titleInput.value = "";
-      textInput.value = "";
-      renderList();
-      renderTimelinePage();
+      dateInput.value = ""; titleInput.value = ""; textInput.value = "";
+      renderList(); renderTimelinePage();
     });
 
     list.addEventListener("click", function (e) {
@@ -458,8 +478,7 @@
       var items = getTimeline();
       if (btn.classList.contains("btn-delete")) {
         setStore("couple-tl", items.filter(function (i) { return i.id !== id; }));
-        renderList();
-        renderTimelinePage();
+        renderList(); renderTimelinePage();
       }
       if (btn.classList.contains("btn-edit")) {
         var item = items.find(function (i) { return i.id === id; });
@@ -480,12 +499,9 @@
           var newTitle = row.querySelector(".edit-title").value.trim();
           var newText = row.querySelector(".edit-text").value.trim();
           if (!newDate || !newTitle || !newText) return;
-          item.date = newDate;
-          item.title = newTitle;
-          item.text = newText;
+          item.date = newDate; item.title = newTitle; item.text = newText;
           setStore("couple-tl", items);
-          renderList();
-          renderTimelinePage();
+          renderList(); renderTimelinePage();
         });
         row.querySelector(".btn-cancel-edit").addEventListener("click", function () { row.remove(); });
       }
@@ -512,15 +528,8 @@
         var doneLabel = item.done ? "未完成" : "已完成";
         var doneClass = item.done ? "btn-done" : "";
         el.innerHTML =
-          '<div class="admin-item-info">' +
-          '<h4>' + (item.done ? '<span style="text-decoration:line-through;opacity:0.6">' + escHtml(item.title) + '</span>' : escHtml(item.title)) + '</h4>' +
-          '<p>' + escHtml(item.note) + (item.done ? ' (已完成)' : '') + '</p>' +
-          '</div>' +
-          '<div class="admin-item-actions">' +
-          '<button class="' + doneClass + '" data-action="toggle" data-id="' + item.id + '">' + doneLabel + '</button>' +
-          '<button class="btn-edit" data-id="' + item.id + '">编辑</button>' +
-          '<button class="btn-delete" data-id="' + item.id + '">删除</button>' +
-          '</div>';
+          '<div class="admin-item-info"><h4>' + (item.done ? '<span style="text-decoration:line-through;opacity:0.6">' + escHtml(item.title) + '</span>' : escHtml(item.title)) + '</h4><p>' + escHtml(item.note) + (item.done ? ' (已完成)' : '') + '</p></div>' +
+          '<div class="admin-item-actions"><button class="' + doneClass + '" data-action="toggle" data-id="' + item.id + '">' + doneLabel + '</button><button class="btn-edit" data-id="' + item.id + '">编辑</button><button class="btn-delete" data-id="' + item.id + '">删除</button></div>';
         list.appendChild(el);
       });
     }
@@ -530,10 +539,8 @@
       var items = getWishes();
       items.push({ id: uid(), title: titleInput.value.trim(), note: noteInput.value.trim(), done: false });
       setStore("couple-wish", items);
-      titleInput.value = "";
-      noteInput.value = "";
-      renderList();
-      renderWishlistPage();
+      titleInput.value = ""; noteInput.value = "";
+      renderList(); renderWishlistPage();
     });
 
     list.addEventListener("click", function (e) {
@@ -547,15 +554,13 @@
         var item = items.find(function (i) { return i.id === id; });
         if (item) item.done = !item.done;
         setStore("couple-wish", items);
-        renderList();
-        renderWishlistPage();
+        renderList(); renderWishlistPage();
         return;
       }
 
       if (btn.classList.contains("btn-delete")) {
         setStore("couple-wish", items.filter(function (i) { return i.id !== id; }));
-        renderList();
-        renderWishlistPage();
+        renderList(); renderWishlistPage();
       }
 
       if (btn.classList.contains("btn-edit")) {
@@ -575,17 +580,136 @@
           var newTitle = row.querySelector(".edit-title").value.trim();
           var newNote = row.querySelector(".edit-note").value.trim();
           if (!newTitle) return;
-          item.title = newTitle;
-          item.note = newNote;
+          item.title = newTitle; item.note = newNote;
           setStore("couple-wish", items);
-          renderList();
-          renderWishlistPage();
+          renderList(); renderWishlistPage();
         });
         row.querySelector(".btn-cancel-edit").addEventListener("click", function () { row.remove(); });
       }
     });
 
     renderList();
+  }
+
+  /* ===== 管理模式：云同步 ===== */
+
+  function initCloudSyncAdmin() {
+    var urlInput = document.getElementById("cloudUrl");
+    var keyInput = document.getElementById("cloudKey");
+    var saveBtn = document.getElementById("saveCloudConfig");
+    var testBtn = document.getElementById("testCloudConfig");
+    var pullBtn = document.getElementById("pullCloudData");
+    var pushBtn = document.getElementById("pushCloudData");
+    var statusEl = document.getElementById("cloudStatus");
+    var exportBtn = document.getElementById("exportData");
+    var importInput = document.getElementById("importData");
+
+    function showStatus(msg, ok) {
+      if (!statusEl) return;
+      statusEl.textContent = msg;
+      statusEl.style.color = ok ? "var(--ok)" : "#e05555";
+    }
+
+    function loadConfig() {
+      var c = CloudSync.getConfig();
+      if (urlInput) urlInput.value = c.url || "";
+      if (keyInput) keyInput.value = c.key || "";
+      if (CloudSync.isReady()) {
+        showStatus("已配置，数据会自动同步到云端", true);
+      } else {
+        showStatus("尚未配置云同步", false);
+      }
+    }
+
+    if (saveBtn) {
+      saveBtn.addEventListener("click", function () {
+        CloudSync.setConfig({ url: (urlInput.value || "").trim(), key: (keyInput.value || "").trim() });
+        loadConfig();
+      });
+    }
+
+    if (testBtn) {
+      testBtn.addEventListener("click", function () {
+        if (!CloudSync.isReady()) { showStatus("请先填写数据库地址和配对密钥", false); return; }
+        showStatus("正在测试连接...", true);
+        CloudSync.fetchJson(CloudSync.getUrl(""), { method: "GET" })
+          .then(function () { showStatus("连接成功！", true); })
+          .catch(function () { showStatus("连接失败，请检查地址和密钥", false); });
+      });
+    }
+
+    if (pullBtn) {
+      pullBtn.addEventListener("click", function () {
+        if (!CloudSync.isReady()) { showStatus("请先配置云同步", false); return; }
+        showStatus("正在从云端拉取数据...", true);
+        CloudSync.pull().then(function (data) {
+          if (data) {
+            showStatus("拉取成功，页面已更新", true);
+            updateTogether();
+            renderAnniversaryPage(); renderMemoriesPage(); renderTimelinePage(); renderWishlistPage();
+          } else {
+            showStatus("云端暂无数据或拉取失败", false);
+          }
+        });
+      });
+    }
+
+    if (pushBtn) {
+      pushBtn.addEventListener("click", function () {
+        if (!CloudSync.isReady()) { showStatus("请先配置云同步", false); return; }
+        showStatus("正在推送到云端...", true);
+        CloudSync.push().then(function (ok) {
+          showStatus(ok ? "推送成功" : "推送失败", ok);
+        });
+      });
+    }
+
+    if (exportBtn) {
+      exportBtn.addEventListener("click", function () {
+        var data = {
+          startDate: getStartDate(),
+          anniversaries: getAnniversaries(),
+          memories: getMemories(),
+          timeline: getTimeline(),
+          wishes: getWishes(),
+          exportedAt: new Date().toISOString()
+        };
+        var blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "couple-data-" + formatDate(new Date()) + ".json";
+        a.click();
+        showStatus("数据已导出到下载文件夹", true);
+      });
+    }
+
+    if (importInput) {
+      importInput.addEventListener("change", function () {
+        var file = importInput.files ? importInput.files[0] : null;
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function () {
+          try {
+            var data = JSON.parse(String(reader.result));
+            if (data.startDate !== undefined) localStorage.setItem("couple-start", data.startDate);
+            if (data.anniversaries !== undefined) localStorage.setItem("couple-ann", JSON.stringify(data.anniversaries));
+            if (data.memories !== undefined) localStorage.setItem("couple-mem", JSON.stringify(data.memories));
+            if (data.timeline !== undefined) localStorage.setItem("couple-tl", JSON.stringify(data.timeline));
+            if (data.wishes !== undefined) localStorage.setItem("couple-wish", JSON.stringify(data.wishes));
+            updateTogether();
+            renderAnniversaryPage(); renderMemoriesPage(); renderTimelinePage(); renderWishlistPage();
+            CloudSync.push().catch(function () {});
+            showStatus("数据导入成功", true);
+          } catch (e) {
+            showStatus("导入失败，文件格式不正确", false);
+          }
+        };
+        reader.readAsText(file);
+        importInput.value = "";
+      });
+    }
+
+    loadConfig();
   }
 
   /* ===== 视图切换 ===== */
@@ -620,10 +744,7 @@
   }
 
   function renderAdminLists() {
-    renderAnnList();
-    renderMemList();
-    renderTlList();
-    renderWishList();
+    renderAnnList(); renderMemList(); renderTlList(); renderWishList();
   }
 
   function renderAnnList() {
@@ -707,11 +828,14 @@
 
   /* ===== 初始化 ===== */
 
-  updateTogether();
-  renderAnniversaryPage();
-  renderMemoriesPage();
-  renderTimelinePage();
-  renderWishlistPage();
+  CloudSync.pull().then(function () {
+    updateTogether();
+    renderAnniversaryPage();
+    renderMemoriesPage();
+    renderTimelinePage();
+    renderWishlistPage();
+  });
+
   initViews();
   initTheme();
   initAdminTabs();
@@ -720,4 +844,5 @@
   initMemoryAdmin();
   initTimelineAdmin();
   initWishAdmin();
+  initCloudSyncAdmin();
 })();

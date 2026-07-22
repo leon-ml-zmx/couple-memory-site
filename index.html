@@ -1494,6 +1494,7 @@
         <button class="admin-tab" data-admin-tab="edit-memories">日常点滴</button>
         <button class="admin-tab" data-admin-tab="edit-timeline">时间线</button>
         <button class="admin-tab" data-admin-tab="edit-wishlist">愿望清单</button>
+        <button class="admin-tab" data-admin-tab="cloud-sync">云同步</button>
       </div>
 
       <!-- 在一起日期 -->
@@ -1575,6 +1576,42 @@
           </div>
         </div>
         <div class="admin-list" id="adminWishList"></div>
+      </div>
+
+      <!-- 云同步 -->
+      <div class="admin-panel" id="panel-cloud-sync">
+        <div class="admin-card">
+          <h3>云同步配置</h3>
+          <p class="admin-tip">配置 Firebase Realtime Database 后，你们两个人在不同设备上添加的内容会自动同步。配对密钥相当于房间密码，两个人填同一个密钥就能共享数据。</p>
+          <label for="cloudUrl">Firebase 数据库地址</label>
+          <input id="cloudUrl" type="url" placeholder="https://你的项目.firebaseio.com">
+          <label for="cloudKey">配对密钥</label>
+          <input id="cloudKey" type="text" placeholder="例如：我们的小天地2026">
+          <div class="hero-actions">
+            <button class="primary-btn" id="saveCloudConfig" type="button">保存配置</button>
+            <button class="secondary-btn" id="testCloudConfig" type="button">测试连接</button>
+          </div>
+          <p id="cloudStatus" style="margin-top:1rem;font-size:0.85rem"></p>
+        </div>
+        <div class="admin-card">
+          <h3>手动同步</h3>
+          <p class="admin-tip">配置完成后，数据会在每次保存时自动同步。也可以在这里手动操作。</p>
+          <div class="hero-actions">
+            <button class="primary-btn" id="pullCloudData" type="button">从云端拉取</button>
+            <button class="secondary-btn" id="pushCloudData" type="button">推送到云端</button>
+          </div>
+        </div>
+        <div class="admin-card">
+          <h3>数据备份</h3>
+          <p class="admin-tip">把当前所有数据导出为 JSON 文件，换设备或清理浏览器后可以导入恢复。</p>
+          <div class="hero-actions">
+            <button class="primary-btn" id="exportData" type="button">导出数据</button>
+            <label for="importData" style="cursor:pointer">
+              <span class="secondary-btn" style="display:inline-block">导入数据</span>
+            </label>
+            <input id="importData" type="file" accept="application/json" style="display:none">
+          </div>
+        </div>
       </div>
 
     </section>
