@@ -50,28 +50,52 @@
 
     html {
       scroll-behavior: smooth;
+      background: var(--bg);
     }
 
     body {
       margin: 0;
       background:
-        url("./assets/bg-dogs.png") no-repeat left 15% top 20%,
-        url("./assets/bg-dogs2.png") no-repeat right 10% bottom 15%,
-        url("./assets/bg-dogs.png") no-repeat right 25% top 60%,
-        url("./assets/bg-dogs2.png") no-repeat left 12% bottom 40%,
         radial-gradient(circle at top left, var(--soft), transparent 34rem),
         radial-gradient(circle at 88% 8%, var(--soft2), transparent 28rem),
         linear-gradient(180deg, var(--bg), var(--bg2));
-      background-blend-mode: soft-light, soft-light, soft-light, soft-light, normal, normal, normal;
       color: var(--ink);
       font-family: "InstrumentSans", "Microsoft YaHei", sans-serif;
       font-size: 16px;
       line-height: 1.7;
       min-height: 100vh;
+      position: relative;
+      isolation: isolate;
     }
 
-    body:not(.night) {
-      background-size: 220px 220px, 200px 200px, 180px 180px, 200px 200px, auto, auto, auto;
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      mix-blend-mode: multiply;
+      background-image:
+        url("./assets/bg-dogs.png"),
+        url("./assets/bg-dogs2.png"),
+        url("./assets/bg-dogs.png"),
+        url("./assets/bg-dogs2.png");
+      background-repeat: no-repeat;
+      background-position:
+        15% 20%,
+        90% 85%,
+        75% 55%,
+        12% 65%;
+      background-size:
+        220px 220px,
+        200px 200px,
+        180px 180px,
+        200px 200px;
+      opacity: 0.5;
+    }
+
+    body.night::before {
+      display: none;
     }
 
     a {
@@ -89,6 +113,8 @@
     .page {
       width: min(1120px, calc(100% - 40px));
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     .nav {
@@ -704,7 +730,7 @@
       position: fixed;
       inset: 0;
       overflow: hidden;
-      z-index: -1;
+      z-index: 0;
     }
 
     .float-hearts span {
@@ -768,11 +794,6 @@
       --soft2: #3f335d;
       --shadow: rgba(0, 0, 0, 0.26);
       --ok: #c3d998;
-      background-image: none;
-      background:
-        radial-gradient(circle at top left, var(--soft), transparent 34rem),
-        radial-gradient(circle at 88% 8%, var(--soft2), transparent 28rem),
-        linear-gradient(180deg, var(--bg), var(--bg2));
     }
 
     @media (max-width: 900px) {
