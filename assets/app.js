@@ -723,9 +723,6 @@
       document.querySelectorAll(".view").forEach(function (v) { v.classList.toggle("active", v.id === viewId); });
       document.querySelectorAll('.links a[href^="#"]').forEach(function (l) { l.classList.toggle("active", l.getAttribute("href") === "#" + viewId); });
       window.scrollTo({ top: 0, behavior: "smooth" });
-      if (viewId === "journal") {
-        renderAdminLists();
-      }
     }
 
     navLinks.forEach(function (link) {
@@ -741,70 +738,6 @@
 
     window.addEventListener("hashchange", function () { showView(window.location.hash.replace("#", "")); });
     showView(window.location.hash.replace("#", "") || "home");
-  }
-
-  function renderAdminLists() {
-    renderAnnList(); renderMemList(); renderTlList(); renderWishList();
-  }
-
-  function renderAnnList() {
-    var list = document.getElementById("adminAnnList");
-    if (!list) return;
-    var items = getAnniversaries();
-    list.innerHTML = "";
-    items.forEach(function (item) {
-      var el = document.createElement("div");
-      el.className = "admin-item";
-      el.innerHTML =
-        '<div class="admin-item-info"><h4>' + escHtml(item.title) + '</h4><p>' + fmtDisplay(item.date) + '</p></div>' +
-        '<div class="admin-item-actions"><button class="btn-delete" data-section="ann" data-id="' + item.id + '">删除</button></div>';
-      list.appendChild(el);
-    });
-  }
-
-  function renderMemList() {
-    var list = document.getElementById("adminMemList");
-    if (!list) return;
-    var items = getMemories();
-    list.innerHTML = "";
-    items.forEach(function (item) {
-      var el = document.createElement("div");
-      el.className = "admin-item";
-      el.innerHTML =
-        '<div class="admin-item-info"><h4>' + escHtml(item.title) + '</h4><p>' + escHtml(item.text) + '</p></div>' +
-        '<div class="admin-item-actions"><button class="btn-delete" data-section="mem" data-id="' + item.id + '">删除</button></div>';
-      list.appendChild(el);
-    });
-  }
-
-  function renderTlList() {
-    var list = document.getElementById("adminTlList");
-    if (!list) return;
-    var items = getTimeline();
-    list.innerHTML = "";
-    items.forEach(function (item) {
-      var el = document.createElement("div");
-      el.className = "admin-item";
-      el.innerHTML =
-        '<div class="admin-item-info"><h4>' + escHtml(item.title) + '</h4><p>' + fmtDisplay(item.date) + ' — ' + escHtml(item.text) + '</p></div>' +
-        '<div class="admin-item-actions"><button class="btn-delete" data-section="tl" data-id="' + item.id + '">删除</button></div>';
-      list.appendChild(el);
-    });
-  }
-
-  function renderWishList() {
-    var list = document.getElementById("adminWishList");
-    if (!list) return;
-    var items = getWishes();
-    list.innerHTML = "";
-    items.forEach(function (item) {
-      var el = document.createElement("div");
-      el.className = "admin-item";
-      el.innerHTML =
-        '<div class="admin-item-info"><h4>' + escHtml(item.title) + (item.done ? ' (已完成)' : '') + '</h4><p>' + escHtml(item.note) + '</p></div>' +
-        '<div class="admin-item-actions"><button class="btn-delete" data-section="wish" data-id="' + item.id + '">删除</button></div>';
-      list.appendChild(el);
-    });
   }
 
   /* ===== 主题 ===== */
