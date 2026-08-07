@@ -55,14 +55,20 @@
     body {
       margin: 0;
       background:
+        url("./assets/bg-dogs.png") repeat,
         radial-gradient(circle at top left, var(--soft), transparent 34rem),
         radial-gradient(circle at 88% 8%, var(--soft2), transparent 28rem),
         linear-gradient(180deg, var(--bg), var(--bg2));
+      background-blend-mode: soft-light, normal, normal, normal;
       color: var(--ink);
       font-family: "InstrumentSans", "Microsoft YaHei", sans-serif;
       font-size: 16px;
       line-height: 1.7;
       min-height: 100vh;
+    }
+
+    body:not(.night) {
+      background-size: 280px 280px, auto, auto, auto;
     }
 
     a {
@@ -759,6 +765,11 @@
       --soft2: #3f335d;
       --shadow: rgba(0, 0, 0, 0.26);
       --ok: #c3d998;
+      background-image: none;
+      background:
+        radial-gradient(circle at top left, var(--soft), transparent 34rem),
+        radial-gradient(circle at 88% 8%, var(--soft2), transparent 28rem),
+        linear-gradient(180deg, var(--bg), var(--bg2));
     }
 
     @media (max-width: 900px) {
@@ -1264,10 +1275,19 @@
     }
 
     .exclusive-memory .em-heart {
-      color: var(--accent);
-      font-size: 1rem;
-      line-height: 1;
+      width: 1.1rem;
+      height: 1.1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       animation: heartBeat 1.6s ease-in-out infinite;
+    }
+
+    .exclusive-memory .em-heart svg {
+      width: 100%;
+      height: 100%;
+      fill: var(--accent);
+      filter: drop-shadow(0 2px 4px rgba(217, 121, 169, 0.3));
     }
 
     .exclusive-memory .em-heart:last-child {
@@ -1366,10 +1386,10 @@
         <span class="eyebrow">把每一天都收藏起来</span>
         <h1>我们的<br><span>Love Story</span></h1>
         <div class="exclusive-memory">
-          <span class="em-heart">♥</span>
+          <span class="em-heart"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
           <span class="em-en">zmx & ml</span>
           <span class="em-cn">专属记忆</span>
-          <span class="em-heart">♥</span>
+          <span class="em-heart"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
         </div>
         <p class="lead">这里记录日常里的小确幸、每个值得庆祝的纪念日，以及一路走来的重要时刻。把名字、日期和故事换成你们自己的，它就是只属于两个人的恋爱网站。</p>
         <div class="hero-actions">
