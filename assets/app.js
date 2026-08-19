@@ -145,14 +145,17 @@
   /* ===== 渲染：在一起天数 ===== */
 
   function updateTogether() {
+    var currentNow = new Date();
     var start = new Date(getStartDate() + "T00:00:00");
-    var diff = Math.max(0, now.getTime() - start.getTime());
+    var diff = Math.max(0, currentNow.getTime() - start.getTime());
     var days = Math.floor(diff / dayMs);
     var hours = Math.floor(diff / (3600 * 1000));
     var daysEl = document.getElementById("daysTogether");
     var hoursEl = document.getElementById("hoursTogether");
     if (daysEl) daysEl.textContent = days.toLocaleString("zh-CN");
     if (hoursEl) hoursEl.textContent = hours.toLocaleString("zh-CN");
+    var descEl = document.getElementById("startDateDesc");
+    if (descEl) descEl.textContent = "从 " + getStartDate() + " 开始计算，每一天都值得纪念。";
   }
 
   /* ===== 渲染：纪念日页面 ===== */
