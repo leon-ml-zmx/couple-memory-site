@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sweet memories</title>
+  <title>æä»¬çæç±çºªå¿µé¦</title>
   <style>
     @font-face {
       font-family: "Lora";
@@ -50,7 +50,6 @@
 
     html {
       scroll-behavior: smooth;
-      background: var(--bg);
     }
 
     body {
@@ -64,38 +63,6 @@
       font-size: 16px;
       line-height: 1.7;
       min-height: 100vh;
-      position: relative;
-      isolation: isolate;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      mix-blend-mode: multiply;
-      background-image:
-        url("./assets/bg-dogs.png"),
-        url("./assets/bg-dogs2.png"),
-        url("./assets/bg-dogs.png"),
-        url("./assets/bg-dogs2.png");
-      background-repeat: no-repeat;
-      background-position:
-        15% 20%,
-        90% 85%,
-        75% 55%,
-        12% 65%;
-      background-size:
-        220px 220px,
-        200px 200px,
-        180px 180px,
-        200px 200px;
-      opacity: 0.5;
-    }
-
-    body.night::before {
-      display: none;
     }
 
     a {
@@ -113,8 +80,6 @@
     .page {
       width: min(1120px, calc(100% - 40px));
       margin: 0 auto;
-      position: relative;
-      z-index: 1;
     }
 
     .nav {
@@ -730,7 +695,7 @@
       position: fixed;
       inset: 0;
       overflow: hidden;
-      z-index: 0;
+      z-index: -1;
     }
 
     .float-hearts span {
@@ -1260,121 +1225,6 @@
         break-inside: avoid;
       }
     }
-
-    /* ===== zmx&ml 专属记忆 花字 ===== */
-    .exclusive-memory {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      margin: 0.3rem 0 1.3rem;
-      padding: 0.55rem 1.5rem;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--soft) 0%, var(--soft2) 100%);
-      border: 1.5px solid color-mix(in srgb, var(--accent) 35%, transparent);
-      box-shadow: 0 10px 28px var(--shadow);
-      position: relative;
-      animation: memFloat 4s ease-in-out infinite;
-    }
-
-    .exclusive-memory::before,
-    .exclusive-memory::after {
-      position: absolute;
-      font-size: 0.75rem;
-      color: var(--accent2);
-      animation: sparkle 2.5s ease-in-out infinite;
-      pointer-events: none;
-    }
-
-    .exclusive-memory::before {
-      content: "✦";
-      top: -0.55rem;
-      right: 0.8rem;
-    }
-
-    .exclusive-memory::after {
-      content: "✧";
-      bottom: -0.45rem;
-      left: 1.2rem;
-      animation-delay: 1.2s;
-    }
-
-    .exclusive-memory .em-heart {
-      width: 1.1rem;
-      height: 1.1rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      animation: heartBeat 1.6s ease-in-out infinite;
-    }
-
-    .exclusive-memory .em-heart svg {
-      width: 100%;
-      height: 100%;
-      fill: var(--accent);
-      filter: drop-shadow(0 2px 4px rgba(217, 121, 169, 0.3));
-    }
-
-    .exclusive-memory .em-heart:last-child {
-      animation-delay: 0.8s;
-    }
-
-    .exclusive-memory .em-en {
-      font-family: "HandLove", "Microsoft YaHei", cursive;
-      font-size: clamp(1.6rem, 4vw, 2.6rem);
-      line-height: 1;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--accent) 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 2px 6px rgba(217, 121, 169, 0.3));
-      letter-spacing: 0.02em;
-      animation: gradientFlow 3.5s linear infinite;
-    }
-
-    .exclusive-memory .em-cn {
-      font-family: "Lora", "Microsoft YaHei", serif;
-      font-size: clamp(1rem, 2.5vw, 1.5rem);
-      font-weight: 700;
-      color: var(--accent);
-      text-shadow: 1px 1px 0 var(--bg2), -1px -1px 0 var(--soft);
-      letter-spacing: 0.12em;
-    }
-
-    @keyframes memFloat {
-      0%, 100% { transform: translateY(0) rotate(-1deg); }
-      50% { transform: translateY(-5px) rotate(-1deg); }
-    }
-
-    @keyframes gradientFlow {
-      to { background-position: 200% center; }
-    }
-
-    @keyframes heartBeat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.3); }
-    }
-
-    @keyframes sparkle {
-      0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.6; }
-      50% { transform: scale(1.4) rotate(180deg); opacity: 1; }
-    }
-
-    @media (max-width: 640px) {
-      .exclusive-memory {
-        padding: 0.4rem 1rem;
-        gap: 0.4rem;
-      }
-
-      .exclusive-memory .em-en {
-        font-size: clamp(1.3rem, 5vw, 1.8rem);
-      }
-
-      .exclusive-memory .em-cn {
-        font-size: clamp(0.85rem, 3vw, 1.1rem);
-      }
-    }
-    /* ===== 花字 END ===== */
   </style>
 </head>
 <body>
@@ -1385,21 +1235,21 @@
     <span><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
   </div>
 
-  <nav class="nav" aria-label="页面导航">
+  <nav class="nav" aria-label="é¡µé¢å¯¼èª">
     <div class="nav-inner">
       <a href="#home" class="brand">
         <span class="heart"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
-        <span>Sweet memories</span>
+        <span>æç±çºªå¿µé¦</span>
       </a>
       <div class="links">
-        <a href="#home">首页</a>
-        <a href="#days">在一起</a>
-        <a href="#anniversary">纪念日</a>
-        <a href="#memories">日常点滴</a>
-        <a href="#timeline">时间线</a>
-        <a href="#wishlist">愿望清单</a>
-        <a href="#journal">管理模式</a>
-        <button class="ghost-btn" id="themeToggle" type="button">夜间模式</button>
+        <a href="#home">é¦é¡µ</a>
+        <a href="#days">å¨ä¸èµ·</a>
+        <a href="#anniversary">çºªå¿µæ¥</a>
+        <a href="#memories">æ¥å¸¸ç¹æ»´</a>
+        <a href="#timeline">æ¶é´çº¿</a>
+        <a href="#wishlist">æ¿ææ¸å</a>
+        <a href="#journal">ç®¡çæ¨¡å¼</a>
+        <button class="ghost-btn" id="themeToggle" type="button">å¤é´æ¨¡å¼</button>
       </div>
     </div>
   </nav>
@@ -1407,24 +1257,19 @@
   <main class="page">
     <header id="home" class="hero view active">
       <div>
-        <span class="eyebrow">把每一天都收藏起来</span>
-        <h1>我们的<br><span>Love Story</span></h1>
-        <div class="exclusive-memory">
-          <span class="em-heart"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
-          <span class="em-en">zmx & ml</span>
-          <span class="em-cn">专属记忆</span>
-          <span class="em-heart"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
-        </div>
+        <span class="eyebrow">ææ¯ä¸å¤©é½æ¶èèµ·æ¥</span>
+        <h1>æä»¬ç<br><span>Love Story</span></h1>
+        <p class="lead">è¿éè®°å½æ¥å¸¸éçå°ç¡®å¹¸ãæ¯ä¸ªå¼å¾åºç¥ççºªå¿µæ¥ï¼ä»¥åä¸è·¯èµ°æ¥çéè¦æ¶å»ãæåå­ãæ¥æåæäºæ¢æä½ ä»¬èªå·±çï¼å®å°±æ¯åªå±äºä¸¤ä¸ªäººçæç±ç½ç«ã</p>
         <div class="hero-actions">
-          <a class="primary-btn" href="#journal">进入管理模式</a>
-          <a class="secondary-btn" href="#timeline">看看我们的时间线</a>
+          <a class="primary-btn" href="#journal">è¿å¥ç®¡çæ¨¡å¼</a>
+          <a class="secondary-btn" href="#timeline">ççæä»¬çæ¶é´çº¿</a>
         </div>
       </div>
 
-      <div class="polaroid-stack" aria-label="情侣回忆插画">
+      <div class="polaroid-stack" aria-label="æä¾£åå¿æç»">
         <article class="polaroid one">
           <div class="photo-art">
-            <svg viewBox="0 0 320 210" role="img" aria-label="夕阳散步">
+            <svg viewBox="0 0 320 210" role="img" aria-label="å¤é³æ£æ­¥">
               <path d="M0 150 C60 120 112 140 168 118 C220 96 268 112 320 82 L320 210 L0 210 Z" fill="var(--accent2)" opacity="0.36"/>
               <circle cx="248" cy="62" r="32" fill="var(--accent2)" opacity="0.7"/>
               <path d="M88 160 Q114 112 140 160" fill="none" stroke="var(--accent)" stroke-width="10" stroke-linecap="round"/>
@@ -1432,12 +1277,12 @@
               <path d="M136 116 C142 102 161 102 167 116 C174 102 194 104 197 121 C200 144 166 158 166 158 C166 158 130 143 136 116 Z" fill="var(--accent)"/>
             </svg>
           </div>
-          <p class="caption">第一次牵手的傍晚</p>
+          <p class="caption">ç¬¬ä¸æ¬¡çµæçåæ</p>
         </article>
 
         <article class="polaroid two">
           <div class="photo-art">
-            <svg viewBox="0 0 320 210" role="img" aria-label="咖啡约会">
+            <svg viewBox="0 0 320 210" role="img" aria-label="åå¡çº¦ä¼">
               <rect x="58" y="72" width="82" height="66" rx="16" fill="var(--bg2)" stroke="var(--accent)" stroke-width="5"/>
               <path d="M138 88 H160 C178 88 178 124 160 124 H138" fill="none" stroke="var(--accent)" stroke-width="8"/>
               <rect x="182" y="70" width="76" height="72" rx="18" fill="var(--soft)" stroke="var(--accent2)" stroke-width="5"/>
@@ -1446,12 +1291,12 @@
               <path d="M218 54 C216 38 232 36 228 22" fill="none" stroke="var(--muted)" stroke-width="4" stroke-linecap="round"/>
             </svg>
           </div>
-          <p class="caption">周末咖啡和一整天聊天</p>
+          <p class="caption">å¨æ«åå¡åä¸æ´å¤©èå¤©</p>
         </article>
 
         <article class="polaroid three">
           <div class="photo-art">
-            <svg viewBox="0 0 320 210" role="img" aria-label="星空许愿">
+            <svg viewBox="0 0 320 210" role="img" aria-label="æç©ºè®¸æ¿">
               <path d="M72 162 C110 116 142 118 160 160 C184 112 224 116 252 164" fill="none" stroke="var(--accent)" stroke-width="9" stroke-linecap="round"/>
               <path d="M58 62 L64 76 L79 78 L68 88 L71 103 L58 95 L45 103 L48 88 L37 78 L52 76 Z" fill="var(--accent2)"/>
               <path d="M236 42 L241 54 L254 56 L244 64 L247 77 L236 70 L225 77 L228 64 L218 56 L231 54 Z" fill="var(--accent2)"/>
@@ -1460,71 +1305,72 @@
               <circle cx="118" cy="88" r="4" fill="var(--accent)"/>
             </svg>
           </div>
-          <p class="caption">一起许过的愿望</p>
+          <p class="caption">ä¸èµ·è®¸è¿çæ¿æ</p>
         </article>
       </div>
     </header>
 
     <section id="days" class="view">
       <div class="section-head">
-        <h2>在一起的日子</h2>
-        <p id="startDateDesc">从 2024-05-20 开始计算，每一天都值得纪念。</p>
+        <h2>å¨ä¸èµ·çæ¥å­</h2>
+        <p>é»è®¤ä» 2024-05-20 å¼å§è®¡ç®ï¼ä½ å¯ä»¥å¨èæ¬éæå¼å§æ¥ææ¹æä½ ä»¬çæ­£ççºªå¿µæ¥ã</p>
       </div>
       <div class="stats-grid">
         <article class="stat-card">
           <span class="stat-number" id="daysTogether">0</span>
-          <small>天互相陪伴</small>
+          <small>å¤©äºç¸éªä¼´</small>
         </article>
         <article class="stat-card">
           <span class="stat-number" id="hoursTogether">0</span>
-          <small>小时分享生活</small>
+          <small>å°æ¶åäº«çæ´»</small>
         </article>
         <article class="stat-card">
           <span class="stat-number">12</span>
-          <small>个想一起完成的愿望</small>
+          <small>ä¸ªæ³ä¸èµ·å®æçæ¿æ</small>
         </article>
         <article class="stat-card">
-          <span class="stat-number">∞</span>
-          <small>份偏爱和坚定</small>
+          <span class="stat-number">â</span>
+          <small>ä»½åç±ååå®</small>
         </article>
       </div>
     </section>
 
     <section id="anniversary" class="view">
       <div class="section-head">
-        <h2>纪念日提醒</h2>
+        <h2>çºªå¿µæ¥æé</h2>
+        <p>æ¯ä¸ªæ¥æé½å¼å¾æå¾ãè¿éä¼èªå¨è®¡ç®è·ç¦»ä¸ä¸æ¬¡çºªå¿µæ¥è¿æå¤ä¹ã</p>
       </div>
       <div class="countdown-grid">
         <article class="card" data-countdown="2026-08-14">
           <span class="date-pill">08.14</span>
-          <h3>第一次见面的日子</h3>
+          <h3>ç¬¬ä¸æ¬¡è§é¢çæ¥å­</h3>
           <div class="days">0</div>
-          <div class="days-label">天后到来</div>
+          <div class="days-label">å¤©åå°æ¥</div>
         </article>
         <article class="card" data-countdown="2026-09-09">
           <span class="date-pill">09.09</span>
-          <h3>正式在一起纪念日</h3>
+          <h3>æ­£å¼å¨ä¸èµ·çºªå¿µæ¥</h3>
           <div class="days">0</div>
-          <div class="days-label">天后到来</div>
+          <div class="days-label">å¤©åå°æ¥</div>
         </article>
         <article class="card" data-countdown="2026-12-24">
           <span class="date-pill">12.24</span>
-          <h3>一起过圣诞</h3>
+          <h3>ä¸èµ·è¿å£è¯</h3>
           <div class="days">0</div>
-          <div class="days-label">天后到来</div>
+          <div class="days-label">å¤©åå°æ¥</div>
         </article>
       </div>
     </section>
 
     <section id="memories" class="view">
       <div class="section-head">
-        <h2>日常点滴</h2>
-        <p>不是只有隆重的日子才值得记住。平凡的一餐、一条消息、一次散步，也会变成很久以后的宝藏。</p>
+        <h2>æ¥å¸¸ç¹æ»´</h2>
+        <p>ä¸æ¯åªæééçæ¥å­æå¼å¾è®°ä½ãå¹³å¡çä¸é¤ãä¸æ¡æ¶æ¯ãä¸æ¬¡æ£æ­¥ï¼ä¹ä¼åæå¾ä¹ä»¥åçå®èã</p>
       </div>
       <div class="memory-grid">
         <article class="memory-card">
           <div class="memory-visual">
-            <svg viewBox="0 0 260 180" role="img" aria-label="晚餐">
+            <svg viewBox="0 0 260 180" role="img" aria-label="æé¤">
               <circle cx="130" cy="95" r="58" fill="var(--bg2)" stroke="var(--accent)" stroke-width="5"/>
               <circle cx="130" cy="95" r="32" fill="var(--soft2)"/>
               <path d="M62 40 V135" stroke="var(--muted)" stroke-width="6" stroke-linecap="round"/>
@@ -1533,13 +1379,13 @@
             </svg>
           </div>
           <div class="memory-body">
-            <h3>一起吃过的饭</h3>
-            <p>热腾腾的火锅、楼下的小面、深夜的便利店关东煮，都是“我们”的味道。</p>
+            <h3>ä¸èµ·åè¿çé¥­</h3>
+            <p>ç­è¾è¾çç«éãæ¥¼ä¸çå°é¢ãæ·±å¤çä¾¿å©åºå³ä¸ç®ï¼é½æ¯âæä»¬âçå³éã</p>
           </div>
         </article>
         <article class="memory-card">
           <div class="memory-visual">
-            <svg viewBox="0 0 260 180" role="img" aria-label="电影票">
+            <svg viewBox="0 0 260 180" role="img" aria-label="çµå½±ç¥¨">
               <path d="M54 58 H206 V122 H54 Z" fill="var(--bg2)" stroke="var(--accent)" stroke-width="5"/>
               <circle cx="54" cy="90" r="12" fill="var(--soft)"/>
               <circle cx="206" cy="90" r="12" fill="var(--soft)"/>
@@ -1548,13 +1394,13 @@
             </svg>
           </div>
           <div class="memory-body">
-            <h3>一起看过的电影</h3>
-            <p>片尾灯亮起来的时候，最想讨论剧情的人，刚好就坐在旁边。</p>
+            <h3>ä¸èµ·çè¿ççµå½±</h3>
+            <p>çå°¾ç¯äº®èµ·æ¥çæ¶åï¼ææ³è®¨è®ºå§æçäººï¼åå¥½å°±åå¨æè¾¹ã</p>
           </div>
         </article>
         <article class="memory-card">
           <div class="memory-visual">
-            <svg viewBox="0 0 260 180" role="img" aria-label="旅行箱">
+            <svg viewBox="0 0 260 180" role="img" aria-label="æè¡ç®±">
               <rect x="76" y="58" width="108" height="86" rx="16" fill="var(--bg2)" stroke="var(--accent)" stroke-width="5"/>
               <path d="M108 58 V48 C108 38 152 38 152 48 V58" fill="none" stroke="var(--accent)" stroke-width="6"/>
               <path d="M104 82 H156 M104 104 H156 M104 126 H138" stroke="var(--accent2)" stroke-width="6" stroke-linecap="round"/>
@@ -1563,8 +1409,8 @@
             </svg>
           </div>
           <div class="memory-body">
-            <h3>想去的远方</h3>
-            <p>把城市、海边、山顶和小巷都写进清单，然后一站一站慢慢实现。</p>
+            <h3>æ³å»çè¿æ¹</h3>
+            <p>æåå¸ãæµ·è¾¹ãå±±é¡¶åå°å··é½åè¿æ¸åï¼ç¶åä¸ç«ä¸ç«æ¢æ¢å®ç°ã</p>
           </div>
         </article>
       </div>
@@ -1572,40 +1418,40 @@
 
     <section id="timeline" class="view">
       <div class="section-head">
-        <h2>时间线</h2>
-        <p>把重要节点按时间排好，回头看就会发现，我们已经一起走了很远。</p>
+        <h2>æ¶é´çº¿</h2>
+        <p>æéè¦èç¹ææ¶é´æå¥½ï¼åå¤´çå°±ä¼åç°ï¼æä»¬å·²ç»ä¸èµ·èµ°äºå¾è¿ã</p>
       </div>
       <div class="timeline">
         <article class="event">
           <span class="dot" aria-hidden="true"></span>
           <div class="event-content">
-            <time>2025.08.07</time>
-            <h3>故事开始</h3>
-            <p>从一句“你好”开始，生活多了一个很重要的人。</p>
+            <time>2024.05.20</time>
+            <h3>æäºå¼å§</h3>
+            <p>ä»ä¸å¥âä½ å¥½âå¼å§ï¼çæ´»å¤äºä¸ä¸ªå¾éè¦çäººã</p>
           </div>
         </article>
         <article class="event">
           <span class="dot" aria-hidden="true"></span>
           <div class="event-content">
             <time>2024.09.09</time>
-            <h3>正式在一起</h3>
-            <p>决定认真牵手，也决定把未来的很多日子都留给彼此。</p>
+            <h3>æ­£å¼å¨ä¸èµ·</h3>
+            <p>å³å®è®¤ççµæï¼ä¹å³å®ææªæ¥çå¾å¤æ¥å­é½çç»å½¼æ­¤ã</p>
           </div>
         </article>
         <article class="event">
           <span class="dot" aria-hidden="true"></span>
           <div class="event-content">
             <time>2025.02.14</time>
-            <h3>第一个情人节</h3>
-            <p>礼物、花、拥抱和笨拙的仪式感，都被认真收藏。</p>
+            <h3>ç¬¬ä¸ä¸ªæäººè</h3>
+            <p>ç¤¼ç©ãè±ãæ¥æ±åç¬¨æçä»ªå¼æï¼é½è¢«è®¤çæ¶èã</p>
           </div>
         </article>
         <article class="event">
           <span class="dot" aria-hidden="true"></span>
           <div class="event-content">
             <time>2025.10.01</time>
-            <h3>第一次长途旅行</h3>
-            <p>一起看陌生城市的日落，也一起确认身边这个人很适合同行。</p>
+            <h3>ç¬¬ä¸æ¬¡é¿éæè¡</h3>
+            <p>ä¸èµ·çéçåå¸çæ¥è½ï¼ä¹ä¸èµ·ç¡®è®¤èº«è¾¹è¿ä¸ªäººå¾éååè¡ã</p>
           </div>
         </article>
       </div>
@@ -1613,155 +1459,182 @@
 
     <section id="wishlist" class="view">
       <div class="section-head">
-        <h2>愿望清单</h2>
-        <p>小愿望不用等到“以后有空”。写下来，然后慢慢把它们打勾。</p>
+        <h2>æ¿ææ¸å</h2>
+        <p>å°æ¿æä¸ç¨ç­å°âä»¥åæç©ºâãåä¸æ¥ï¼ç¶åæ¢æ¢æå®ä»¬æå¾ã</p>
       </div>
       <div class="wish-grid">
         <article class="wish">
-          <strong>一起看海</strong>
-          <span>找一个天气很好的周末。</span>
+          <strong>ä¸èµ·çæµ·</strong>
+          <span>æ¾ä¸ä¸ªå¤©æ°å¾å¥½çå¨æ«ã</span>
         </article>
         <article class="wish">
-          <strong>拍一组写真</strong>
-          <span>记录现在的我们。</span>
+          <strong>æä¸ç»åç</strong>
+          <span>è®°å½ç°å¨çæä»¬ã</span>
         </article>
         <article class="wish">
-          <strong>学会一道菜</strong>
-          <span>以后变成家的味道。</span>
+          <strong>å­¦ä¼ä¸éè</strong>
+          <span>ä»¥ååæå®¶çå³éã</span>
         </article>
         <article class="wish">
-          <strong class="done">完成：跨年</strong>
-          <span>倒数的时候，身边是你。</span>
+          <strong class="done">å®æï¼è·¨å¹´</strong>
+          <span>åæ°çæ¶åï¼èº«è¾¹æ¯ä½ ã</span>
         </article>
       </div>
     </section>
 
     <section id="journal" class="view">
       <div class="section-head">
-        <h2>管理模式</h2>
-        <p>在这里可以编辑所有页面内容，也可以添加新记录。所有改动会保存在当前浏览器里。</p>
+        <h2>ç®¡çæ¨¡å¼</h2>
+        <p>å¨è¿éå¯ä»¥ç¼è¾ææé¡µé¢åå®¹ï¼ä¹å¯ä»¥æ·»å æ°è®°å½ãæææ¹å¨ä¼ä¿å­å¨å½åæµè§å¨éã</p>
       </div>
 
       <div class="admin-tabs">
-        <button class="admin-tab active" data-admin-tab="start-date">在一起日期</button>
-        <button class="admin-tab" data-admin-tab="edit-anniversary">纪念日</button>
-        <button class="admin-tab" data-admin-tab="edit-memories">日常点滴</button>
-        <button class="admin-tab" data-admin-tab="edit-timeline">时间线</button>
-        <button class="admin-tab" data-admin-tab="edit-wishlist">愿望清单</button>
-        <button class="admin-tab" data-admin-tab="cloud-sync">云同步</button>
+        <button class="admin-tab active" data-admin-tab="start-date">å¨ä¸èµ·æ¥æ</button>
+        <button class="admin-tab" data-admin-tab="edit-anniversary">çºªå¿µæ¥</button>
+        <button class="admin-tab" data-admin-tab="edit-memories">æ¥å¸¸ç¹æ»´</button>
+        <button class="admin-tab" data-admin-tab="edit-timeline">æ¶é´çº¿</button>
+        <button class="admin-tab" data-admin-tab="edit-wishlist">æ¿ææ¸å</button>
+        <button class="admin-tab" data-admin-tab="cloud-sync">äºåæ­¥</button>
       </div>
 
-      <!-- 在一起日期 -->
+      <!-- å¨ä¸èµ·æ¥æ -->
       <div class="admin-panel active" id="panel-start-date">
         <div class="admin-card">
-          <h3>修改在一起的开始日期</h3>
-          <label for="adminStartDate">开始日期</label>
-          <input id="adminStartDate" type="date" value="2025-08-07">
+          <h3>ä¿®æ¹å¨ä¸èµ·çå¼å§æ¥æ</h3>
+          <label for="adminStartDate">å¼å§æ¥æ</label>
+          <input id="adminStartDate" type="date" value="2024-05-20">
           <div class="hero-actions">
-            <button class="primary-btn" id="saveStartDate" type="button">保存并刷新</button>
+            <button class="primary-btn" id="saveStartDate" type="button">ä¿å­å¹¶å·æ°</button>
           </div>
         </div>
       </div>
 
-      <!-- 纪念日 -->
+      <!-- çºªå¿µæ¥ -->
       <div class="admin-panel" id="panel-edit-anniversary">
         <div class="admin-card">
-          <h3>纪念日管理</h3>
-          <p class="admin-tip">添加、编辑或删除纪念日，保存后会同步到纪念日页面。</p>
-          <label for="annDate">日期</label>
+          <h3>çºªå¿µæ¥ç®¡ç</h3>
+          <p class="admin-tip">æ·»å ãç¼è¾æå é¤çºªå¿µæ¥ï¼ä¿å­åä¼åæ­¥å°çºªå¿µæ¥é¡µé¢ã</p>
+          <label for="annDate">æ¥æ</label>
           <input id="annDate" type="date">
-          <label for="annTitle">名称</label>
-          <input id="annTitle" type="text" placeholder="例如：第一次见面">
+          <label for="annTitle">åç§°</label>
+          <input id="annTitle" type="text" placeholder="ä¾å¦ï¼ç¬¬ä¸æ¬¡è§é¢">
           <div class="hero-actions">
-            <button class="primary-btn" id="addAnniversary" type="button">添加纪念日</button>
+            <button class="primary-btn" id="addAnniversary" type="button">æ·»å çºªå¿µæ¥</button>
           </div>
         </div>
         <div class="admin-list" id="adminAnnList"></div>
       </div>
 
-      <!-- 日常点滴 -->
+      <!-- æ¥å¸¸ç¹æ»´ -->
       <div class="admin-panel" id="panel-edit-memories">
         <div class="admin-card">
-          <h3>日常点滴管理</h3>
-          <p class="admin-tip">添加、编辑或删除日常点滴，支持上传图片。</p>
-          <label for="memTitle">标题</label>
-          <input id="memTitle" type="text" placeholder="例如：一起吃过的饭">
-          <label for="memText">描述</label>
-          <textarea id="memText" placeholder="写下当时的感受……"></textarea>
-          <label for="memImage">图片（可选）</label>
+          <h3>æ¥å¸¸ç¹æ»´ç®¡ç</h3>
+          <p class="admin-tip">æ·»å ãç¼è¾æå é¤æ¥å¸¸ç¹æ»´ï¼æ¯æä¸ä¼ å¾çã</p>
+          <label for="memTitle">æ é¢</label>
+          <input id="memTitle" type="text" placeholder="ä¾å¦ï¼ä¸èµ·åè¿çé¥­">
+          <label for="memText">æè¿°</label>
+          <textarea id="memText" placeholder="åä¸å½æ¶çæåâ¦â¦"></textarea>
+          <label for="memImage">å¾çï¼å¯éï¼</label>
           <input id="memImage" type="file" accept="image/*">
-          <span class="file-hint">图片会保存到当前浏览器，不会上传到网络。</span>
+          <span class="file-hint">å¾çä¼ä¿å­å°å½åæµè§å¨ï¼ä¸ä¼ä¸ä¼ å°ç½ç»ã</span>
           <div class="hero-actions">
-            <button class="primary-btn" id="addMemory" type="button">添加点滴</button>
+            <button class="primary-btn" id="addMemory" type="button">æ·»å ç¹æ»´</button>
           </div>
         </div>
         <div class="admin-list" id="adminMemList"></div>
       </div>
 
-      <!-- 时间线 -->
+      <!-- æ¶é´çº¿ -->
       <div class="admin-panel" id="panel-edit-timeline">
         <div class="admin-card">
-          <h3>时间线管理</h3>
-          <p class="admin-tip">添加、编辑或删除时间线上的重要时刻。</p>
-          <label for="tlDate">日期</label>
+          <h3>æ¶é´çº¿ç®¡ç</h3>
+          <p class="admin-tip">æ·»å ãç¼è¾æå é¤æ¶é´çº¿ä¸çéè¦æ¶å»ã</p>
+          <label for="tlDate">æ¥æ</label>
           <input id="tlDate" type="date">
-          <label for="tlTitle">标题</label>
-          <input id="tlTitle" type="text" placeholder="例如：故事开始">
-          <label for="tlText">描述</label>
-          <textarea id="tlText" placeholder="写下这个时刻的故事……"></textarea>
+          <label for="tlTitle">æ é¢</label>
+          <input id="tlTitle" type="text" placeholder="ä¾å¦ï¼æäºå¼å§">
+          <label for="tlText">æè¿°</label>
+          <textarea id="tlText" placeholder="åä¸è¿ä¸ªæ¶å»çæäºâ¦â¦"></textarea>
           <div class="hero-actions">
-            <button class="primary-btn" id="addTimeline" type="button">添加事件</button>
+            <button class="primary-btn" id="addTimeline" type="button">æ·»å äºä»¶</button>
           </div>
         </div>
         <div class="admin-list" id="adminTlList"></div>
       </div>
 
-      <!-- 愿望清单 -->
+      <!-- æ¿ææ¸å -->
       <div class="admin-panel" id="panel-edit-wishlist">
         <div class="admin-card">
-          <h3>愿望清单管理</h3>
-          <p class="admin-tip">添加、编辑或删除愿望，也可以标记已完成。</p>
-          <label for="wishTitle">愿望</label>
-          <input id="wishTitle" type="text" placeholder="例如：一起看海">
-          <label for="wishNote">备注</label>
-          <input id="wishNote" type="text" placeholder="例如：找一个天气很好的周末">
+          <h3>æ¿ææ¸åç®¡ç</h3>
+          <p class="admin-tip">æ·»å ãç¼è¾æå é¤æ¿æï¼ä¹å¯ä»¥æ è®°å·²å®æã</p>
+          <label for="wishTitle">æ¿æ</label>
+          <input id="wishTitle" type="text" placeholder="ä¾å¦ï¼ä¸èµ·çæµ·">
+          <label for="wishNote">å¤æ³¨</label>
+          <input id="wishNote" type="text" placeholder="ä¾å¦ï¼æ¾ä¸ä¸ªå¤©æ°å¾å¥½çå¨æ«">
           <div class="hero-actions">
-            <button class="primary-btn" id="addWish" type="button">添加愿望</button>
+            <button class="primary-btn" id="addWish" type="button">æ·»å æ¿æ</button>
           </div>
         </div>
         <div class="admin-list" id="adminWishList"></div>
       </div>
 
-      <!-- 云同步 -->
+      <!-- äºåæ­¥ -->
       <div class="admin-panel" id="panel-cloud-sync">
         <div class="admin-card">
-          <h3>云同步配置</h3>
-          <p class="admin-tip">配置 Firebase Realtime Database 后，你们两个人在不同设备上添加的内容会自动同步。配对密钥相当于房间密码，两个人填同一个密钥就能共享数据。</p>
-          <label for="cloudUrl">Firebase 数据库地址</label>
-          <input id="cloudUrl" type="url" placeholder="https://你的项目.firebaseio.com">
-          <label for="cloudKey">配对密钥</label>
-          <input id="cloudKey" type="text" placeholder="例如：我们的小天地2026">
-          <div class="hero-actions">
-            <button class="primary-btn" id="saveCloudConfig" type="button">保存配置</button>
-            <button class="secondary-btn" id="testCloudConfig" type="button">测试连接</button>
+          <h3>äºåæ­¥éç½®</h3>
+          <p class="admin-tip">éæ©ä¸ç§äºæ°æ®åºï¼éç½®åä¸¤ä¸ªäººå¨ä¸åè®¾å¤ä¸æ·»å çåå®¹ä¼èªå¨åæ­¥å¹¶æ°¸ä¹ä¿å­ã</p>
+
+          <label for="cloudBackend">éæ©äºæå¡</label>
+          <select id="cloudBackend" style="width:100%;padding:0.6rem 0.8rem;border:1px solid var(--rule);border-radius:8px;background:var(--bg);color:var(--ink);font-size:0.95rem;margin-bottom:1rem">
+            <option value="supabase">Supabaseï¼æ¨è Â· åè´¹é¢åº¦é«ï¼</option>
+            <option value="firebase">Firebase Realtime Database</option>
+          </select>
+
+          <!-- Supabase éç½® -->
+          <div id="sbConfigWrap">
+            <p class="admin-tip" style="margin-bottom:0.8rem">Supabase æä¾ 500MB æ°æ®åº + 5GB æµéï¼å®å¨åè´¹ï¼è¶³å¤æä¾£ç½ç«é¿æä½¿ç¨ã<a href="https://supabase.com" target="_blank" style="color:var(--accent)">å»æ³¨å â</a></p>
+            <label for="sbUrl">Supabase é¡¹ç®å°å (Project URL)</label>
+            <input id="sbUrl" type="url" placeholder="https://xxxxx.supabase.co">
+            <label for="sbKey">anon public API Key</label>
+            <input id="sbKey" type="text" placeholder="eyJhbGciOiJIUzI1NiIs..." style="font-size:0.8rem">
+            <label for="sbPairKey">éå¯¹å¯é¥</label>
+            <input id="sbPairKey" type="text" placeholder="ä¾å¦ï¼æä»¬çå°å¤©å°2026">
+            <div class="hero-actions">
+              <button class="primary-btn" id="saveSbConfig" type="button">ä¿å­ Supabase éç½®</button>
+              <button class="secondary-btn" id="testSbConfig" type="button">æµè¯è¿æ¥</button>
+            </div>
           </div>
+
+          <!-- Firebase éç½® -->
+          <div id="fbConfigWrap" style="display:none">
+            <p class="admin-tip" style="margin-bottom:0.8rem">Firebase Realtime Database ä¹æ¯åè´¹æ¹æ¡ï¼ä½é¢åº¦è¾å°ã</p>
+            <label for="cloudUrl">Firebase æ°æ®åºå°å</label>
+            <input id="cloudUrl" type="url" placeholder="https://ä½ çé¡¹ç®.firebaseio.com">
+            <label for="cloudKey">éå¯¹å¯é¥</label>
+            <input id="cloudKey" type="text" placeholder="ä¾å¦ï¼æä»¬çå°å¤©å°2026">
+            <div class="hero-actions">
+              <button class="primary-btn" id="saveCloudConfig" type="button">ä¿å­ Firebase éç½®</button>
+              <button class="secondary-btn" id="testCloudConfig" type="button">æµè¯è¿æ¥</button>
+            </div>
+          </div>
+
           <p id="cloudStatus" style="margin-top:1rem;font-size:0.85rem"></p>
         </div>
         <div class="admin-card">
-          <h3>手动同步</h3>
-          <p class="admin-tip">配置完成后，数据会在每次保存时自动同步。也可以在这里手动操作。</p>
+          <h3>æå¨åæ­¥</h3>
+          <p class="admin-tip">éç½®å®æåï¼æ°æ®ä¼å¨æ¯æ¬¡ä¿å­æ¶èªå¨åæ­¥ãä¹å¯ä»¥å¨è¿éæå¨æä½ã</p>
           <div class="hero-actions">
-            <button class="primary-btn" id="pullCloudData" type="button">从云端拉取</button>
-            <button class="secondary-btn" id="pushCloudData" type="button">推送到云端</button>
+            <button class="primary-btn" id="pullCloudData" type="button">ä»äºç«¯æå</button>
+            <button class="secondary-btn" id="pushCloudData" type="button">æ¨éå°äºç«¯</button>
           </div>
         </div>
         <div class="admin-card">
-          <h3>数据备份</h3>
-          <p class="admin-tip">把当前所有数据导出为 JSON 文件，换设备或清理浏览器后可以导入恢复。</p>
+          <h3>æ°æ®å¤ä»½</h3>
+          <p class="admin-tip">æå½åæææ°æ®å¯¼åºä¸º JSON æä»¶ï¼æ¢è®¾å¤ææ¸çæµè§å¨åå¯ä»¥å¯¼å¥æ¢å¤ã</p>
           <div class="hero-actions">
-            <button class="primary-btn" id="exportData" type="button">导出数据</button>
+            <button class="primary-btn" id="exportData" type="button">å¯¼åºæ°æ®</button>
             <label for="importData" style="cursor:pointer">
-              <span class="secondary-btn" style="display:inline-block">导入数据</span>
+              <span class="secondary-btn" style="display:inline-block">å¯¼å¥æ°æ®</span>
             </label>
             <input id="importData" type="file" accept="application/json" style="display:none">
           </div>
@@ -1773,9 +1646,10 @@
 
   <footer class="footer">
     <span class="sign">To My Favorite Person</span>
-    <p>愿我们在普通日子里，也能一直发现彼此的可爱。</p>
+    <p>æ¿æä»¬å¨æ®éæ¥å­éï¼ä¹è½ä¸ç´åç°å½¼æ­¤çå¯ç±ã</p>
   </footer>
 
   <script src="assets/app.js"></script>
 </body>
 </html>
+
