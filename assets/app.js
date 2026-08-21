@@ -2,7 +2,7 @@
   var dayMs = 24 * 60 * 60 * 1000;
   var now = new Date();
 
-  /* ===== 工具函数 ===== */
+  /* ===== å·¥å·å½æ° ===== */
 
   function pad(n) { return String(n).padStart(2, "0"); }
 
@@ -29,35 +29,35 @@
     return d.innerHTML;
   }
 
-  /* ===== 默认数据 ===== */
+  /* ===== é»è®¤æ°æ® ===== */
 
-  var DEFAULT_START = "2025-08-07";
+  var DEFAULT_START = "2024-05-20";
 
   var DEFAULT_ANNIVERSARIES = [
-    { id: "a1", date: "2026-08-14", title: "第一次见面的日子" },
-    { id: "a2", date: "2026-09-09", title: "正式在一起纪念日" },
-    { id: "a3", date: "2026-12-24", title: "一起过圣诞" }
+    { id: "a1", date: "2026-08-14", title: "ç¬¬ä¸æ¬¡è§é¢çæ¥å­" },
+    { id: "a2", date: "2026-09-09", title: "æ­£å¼å¨ä¸èµ·çºªå¿µæ¥" },
+    { id: "a3", date: "2026-12-24", title: "ä¸èµ·è¿å£è¯" }
   ];
 
   var DEFAULT_MEMORIES = [
-    { id: "m1", title: "一起吃过的饭", text: "热腾腾的火锅、楼下的小面、深夜的便利店关东煮，都是「我们」的味道。", image: "" },
-    { id: "m2", title: "一起看过的电影", text: "片尾灯亮起来的时候，最想讨论剧情的人，刚好就坐在旁边。", image: "" },
-    { id: "m3", title: "想去的远方", text: "把城市、海边、山顶和小巷都写进清单，然后一站一站慢慢实现。", image: "" },
-    { id: "m4", title: "一起玩的游戏", text: "无论是联机打怪还是桌游对决，每次开黑都像是在并肩作战。", image: "" }
+    { id: "m1", title: "ä¸èµ·åè¿çé¥­", text: "ç­è¾è¾çç«éãæ¥¼ä¸çå°é¢ãæ·±å¤çä¾¿å©åºå³ä¸ç®ï¼é½æ¯ãæä»¬ãçå³éã", image: "" },
+    { id: "m2", title: "ä¸èµ·çè¿ççµå½±", text: "çå°¾ç¯äº®èµ·æ¥çæ¶åï¼ææ³è®¨è®ºå§æçäººï¼åå¥½å°±åå¨æè¾¹ã", image: "" },
+    { id: "m3", title: "æ³å»çè¿æ¹", text: "æåå¸ãæµ·è¾¹ãå±±é¡¶åå°å··é½åè¿æ¸åï¼ç¶åä¸ç«ä¸ç«æ¢æ¢å®ç°ã", image: "" },
+    { id: "m4", title: "ä¸èµ·ç©çæ¸¸æ", text: "æ è®ºæ¯èæºææªè¿æ¯æ¡æ¸¸å¯¹å³ï¼æ¯æ¬¡å¼é»é½åæ¯å¨å¹¶è©ä½æã", image: "" }
   ];
 
   var DEFAULT_TIMELINE = [
-    { id: "t1", date: "2025-08-07", title: "故事开始", text: "从一句「你好」开始，生活多了一个很重要的人。" },
-    { id: "t2", date: "2024-09-09", title: "正式在一起", text: "决定认真牵手，也决定把未来的很多日子都留给彼此。" },
-    { id: "t3", date: "2025-02-14", title: "第一个情人节", text: "礼物、花、拥抱和笨拙的仪式感，都被认真收藏。" },
-    { id: "t4", date: "2025-10-01", title: "第一次长途旅行", text: "一起看陌生城市的日落，也一起确认身边这个人很适合同行。" }
+    { id: "t1", date: "2024-05-20", title: "æäºå¼å§", text: "ä»ä¸å¥ãä½ å¥½ãå¼å§ï¼çæ´»å¤äºä¸ä¸ªå¾éè¦çäººã" },
+    { id: "t2", date: "2024-09-09", title: "æ­£å¼å¨ä¸èµ·", text: "å³å®è®¤ççµæï¼ä¹å³å®ææªæ¥çå¾å¤æ¥å­é½çç»å½¼æ­¤ã" },
+    { id: "t3", date: "2025-02-14", title: "ç¬¬ä¸ä¸ªæäººè", text: "ç¤¼ç©ãè±ãæ¥æ±åç¬¨æçä»ªå¼æï¼é½è¢«è®¤çæ¶èã" },
+    { id: "t4", date: "2025-10-01", title: "ç¬¬ä¸æ¬¡é¿éæè¡", text: "ä¸èµ·çéçåå¸çæ¥è½ï¼ä¹ä¸èµ·ç¡®è®¤èº«è¾¹è¿ä¸ªäººå¾éååè¡ã" }
   ];
 
   var DEFAULT_WISHES = [
-    { id: "w1", title: "一起看海", note: "找一个天气很好的周末。", done: false },
-    { id: "w2", title: "拍一组写真", note: "记录现在的我们。", done: false },
-    { id: "w3", title: "学会一道菜", note: "以后变成家的味道。", done: false },
-    { id: "w4", title: "跨年", note: "倒数的时候，身边是你。", done: true }
+    { id: "w1", title: "ä¸èµ·çæµ·", note: "æ¾ä¸ä¸ªå¤©æ°å¾å¥½çå¨æ«ã", done: false },
+    { id: "w2", title: "æä¸ç»åç", note: "è®°å½ç°å¨çæä»¬ã", done: false },
+    { id: "w3", title: "å­¦ä¼ä¸éè", note: "ä»¥ååæå®¶çå³éã", done: false },
+    { id: "w4", title: "è·¨å¹´", note: "åæ°çæ¶åï¼èº«è¾¹æ¯ä½ ã", done: true }
   ];
 
   /* ===== Cloud Sync (Firebase REST API) ===== */
@@ -122,7 +122,80 @@
     }
   };
 
-  /* ===== 本地存储 ===== */
+  /* ===== Cloud Sync (Supabase REST API) ===== */
+
+  var SupabaseSync = {
+    getConfig: function () {
+      try {
+        return JSON.parse(localStorage.getItem("couple-supabase-config")) || {};
+      } catch (e) { return {}; }
+    },
+    setConfig: function (cfg) {
+      localStorage.setItem("couple-supabase-config", JSON.stringify(cfg));
+    },
+    isReady: function () {
+      var c = this.getConfig();
+      return !!(c.url && c.url.trim() && c.key && c.key.trim() && c.pairKey && c.pairKey.trim());
+    },
+    getHeaders: function () {
+      var c = this.getConfig();
+      return {
+        "apikey": c.key,
+        "Authorization": "Bearer " + c.key,
+        "Content-Type": "application/json"
+      };
+    },
+    pull: function () {
+      if (!this.isReady()) return Promise.resolve(null);
+      var c = this.getConfig();
+      var url = c.url.replace(/\/$/, "") + "/rest/v1/couple_data?key=eq." + encodeURIComponent(c.pairKey) + "&select=data";
+      return fetch(url, { method: "GET", headers: this.getHeaders() }).then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      }).then(function (rows) {
+        if (!rows || !rows.length || !rows[0].data) return null;
+        var data = rows[0].data;
+        if (data.startDate !== undefined) localStorage.setItem("couple-start", data.startDate);
+        if (data.anniversaries !== undefined) localStorage.setItem("couple-ann", JSON.stringify(data.anniversaries));
+        if (data.memories !== undefined) localStorage.setItem("couple-mem", JSON.stringify(data.memories));
+        if (data.timeline !== undefined) localStorage.setItem("couple-tl", JSON.stringify(data.timeline));
+        if (data.wishes !== undefined) localStorage.setItem("couple-wish", JSON.stringify(data.wishes));
+        return data;
+      }).catch(function (err) {
+        console.warn("Supabase pull failed:", err);
+        return null;
+      });
+    },
+    push: function () {
+      if (!this.isReady()) return Promise.resolve(false);
+      var c = this.getConfig();
+      var payload = {
+        key: c.pairKey,
+        data: {
+          startDate: localStorage.getItem("couple-start") || DEFAULT_START,
+          anniversaries: getStore("couple-ann", DEFAULT_ANNIVERSARIES),
+          memories: getStore("couple-mem", DEFAULT_MEMORIES),
+          timeline: getStore("couple-tl", DEFAULT_TIMELINE),
+          wishes: getStore("couple-wish", DEFAULT_WISHES)
+        },
+        updated_at: new Date().toISOString()
+      };
+      var url = c.url.replace(/\/$/, "") + "/rest/v1/couple_data?on_conflict=key";
+      return fetch(url, {
+        method: "POST",
+        headers: Object.assign({}, this.getHeaders(), { "Prefer": "resolution=merge-duplicates" }),
+        body: JSON.stringify(payload)
+      }).then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return true;
+      }).catch(function (err) {
+        console.warn("Supabase push failed:", err);
+        return false;
+      });
+    }
+  };
+
+  /* ===== æ¬å°å­å¨ ===== */
 
   function getStore(key, fallback) {
     try { return JSON.parse(localStorage.getItem(key)) || fallback; }
@@ -134,6 +207,9 @@
     if (CloudSync.isReady()) {
       CloudSync.push().catch(function () {});
     }
+    if (SupabaseSync.isReady()) {
+      SupabaseSync.push().catch(function () {});
+    }
   }
 
   function getStartDate() { return localStorage.getItem("couple-start") || DEFAULT_START; }
@@ -142,23 +218,20 @@
   function getTimeline() { return getStore("couple-tl", DEFAULT_TIMELINE); }
   function getWishes() { return getStore("couple-wish", DEFAULT_WISHES); }
 
-  /* ===== 渲染：在一起天数 ===== */
+  /* ===== æ¸²æï¼å¨ä¸èµ·å¤©æ° ===== */
 
   function updateTogether() {
-    var currentNow = new Date();
     var start = new Date(getStartDate() + "T00:00:00");
-    var diff = Math.max(0, currentNow.getTime() - start.getTime());
+    var diff = Math.max(0, now.getTime() - start.getTime());
     var days = Math.floor(diff / dayMs);
     var hours = Math.floor(diff / (3600 * 1000));
     var daysEl = document.getElementById("daysTogether");
     var hoursEl = document.getElementById("hoursTogether");
     if (daysEl) daysEl.textContent = days.toLocaleString("zh-CN");
     if (hoursEl) hoursEl.textContent = hours.toLocaleString("zh-CN");
-    var descEl = document.getElementById("startDateDesc");
-    if (descEl) descEl.textContent = "从 " + getStartDate() + " 开始计算，每一天都值得纪念。";
   }
 
-  /* ===== 渲染：纪念日页面 ===== */
+  /* ===== æ¸²æï¼çºªå¿µæ¥é¡µé¢ ===== */
 
   function renderAnniversaryPage() {
     var grid = document.querySelector("#anniversary .countdown-grid");
@@ -175,7 +248,7 @@
         '<span class="date-pill">' + monthDay + '</span>' +
         '<h3>' + escHtml(item.title) + '</h3>' +
         '<div class="days">0</div>' +
-        '<div class="days-label">天后到来</div>';
+        '<div class="days-label">å¤©åå°æ¥</div>';
       grid.appendChild(card);
     });
     updateCountdowns();
@@ -193,11 +266,11 @@
       var daysEl = card.querySelector(".days");
       var labelEl = card.querySelector(".days-label");
       if (daysEl) daysEl.textContent = diff;
-      if (labelEl) labelEl.textContent = diff === 0 ? "就是今天" : "天后到来";
+      if (labelEl) labelEl.textContent = diff === 0 ? "å°±æ¯ä»å¤©" : "å¤©åå°æ¥";
     });
   }
 
-  /* ===== 渲染：日常点滴页面 ===== */
+  /* ===== æ¸²æï¼æ¥å¸¸ç¹æ»´é¡µé¢ ===== */
 
   function renderMemoriesPage() {
     var grid = document.querySelector("#memories .memory-grid");
@@ -211,7 +284,7 @@
       if (item.image) {
         visualHtml += '<img src="' + item.image + '" alt="' + escHtml(item.title) + '">';
       } else {
-        visualHtml += '<svg viewBox="0 0 260 180"><rect width="260" height="180" fill="var(--soft)"/><text x="130" y="100" text-anchor="middle" fill="var(--muted)" font-size="14">暂无图片</text></svg>';
+        visualHtml += '<svg viewBox="0 0 260 180"><rect width="260" height="180" fill="var(--soft)"/><text x="130" y="100" text-anchor="middle" fill="var(--muted)" font-size="14">ææ å¾ç</text></svg>';
       }
       visualHtml += '</div>';
       card.innerHTML = visualHtml +
@@ -223,7 +296,7 @@
     });
   }
 
-  /* ===== 渲染：时间线页面 ===== */
+  /* ===== æ¸²æï¼æ¶é´çº¿é¡µé¢ ===== */
 
   function renderTimelinePage() {
     var container = document.querySelector("#timeline .timeline");
@@ -245,7 +318,7 @@
     });
   }
 
-  /* ===== 渲染：愿望清单页面 ===== */
+  /* ===== æ¸²æï¼æ¿ææ¸åé¡µé¢ ===== */
 
   function renderWishlistPage() {
     var grid = document.querySelector("#wishlist .wish-grid");
@@ -256,7 +329,7 @@
       var el = document.createElement("article");
       el.className = "wish";
       var strongClass = item.done ? ' class="done"' : "";
-      var prefix = item.done ? "完成：" : "";
+      var prefix = item.done ? "å®æï¼" : "";
       el.innerHTML =
         '<strong' + strongClass + '>' + prefix + escHtml(item.title) + '</strong>' +
         '<span>' + escHtml(item.note) + '</span>';
@@ -264,7 +337,7 @@
     });
   }
 
-  /* ===== 管理模式：Tab 切换 ===== */
+  /* ===== ç®¡çæ¨¡å¼ï¼Tab åæ¢ ===== */
 
   function initAdminTabs() {
     var tabs = document.querySelectorAll(".admin-tab");
@@ -278,7 +351,7 @@
     });
   }
 
-  /* ===== 管理模式：在一起日期 ===== */
+  /* ===== ç®¡çæ¨¡å¼ï¼å¨ä¸èµ·æ¥æ ===== */
 
   function initStartDateAdmin() {
     var input = document.getElementById("adminStartDate");
@@ -290,12 +363,13 @@
       localStorage.setItem("couple-start", input.value);
       updateTogether();
       CloudSync.push().catch(function () {});
-      btn.textContent = "已保存";
-      setTimeout(function () { btn.textContent = "保存并刷新"; }, 1200);
+      SupabaseSync.push().catch(function () {});
+      btn.textContent = "å·²ä¿å­";
+      setTimeout(function () { btn.textContent = "ä¿å­å¹¶å·æ°"; }, 1200);
     });
   }
 
-  /* ===== 管理模式：纪念日 ===== */
+  /* ===== ç®¡çæ¨¡å¼ï¼çºªå¿µæ¥ ===== */
 
   function initAnniversaryAdmin() {
     var dateInput = document.getElementById("annDate");
@@ -312,7 +386,7 @@
         el.className = "admin-item";
         el.innerHTML =
           '<div class="admin-item-info"><h4>' + escHtml(item.title) + '</h4><p>' + fmtDisplay(item.date) + '</p></div>' +
-          '<div class="admin-item-actions"><button class="btn-edit" data-id="' + item.id + '">编辑</button><button class="btn-delete" data-id="' + item.id + '">删除</button></div>';
+          '<div class="admin-item-actions"><button class="btn-edit" data-id="' + item.id + '">ç¼è¾</button><button class="btn-delete" data-id="' + item.id + '">å é¤</button></div>';
         list.appendChild(el);
       });
     }
@@ -346,7 +420,7 @@
         row.innerHTML =
           '<input type="date" value="' + item.date + '" class="edit-date">' +
           '<input type="text" value="' + escHtml(item.title) + '" class="edit-title">' +
-          '<div style="display:flex;gap:0.5rem"><button class="btn-save-edit">保存</button><button class="btn-cancel-edit" style="padding:0.35rem 0.8rem;border-radius:6px;border:1px solid var(--rule);background:var(--bg);color:var(--muted);font-size:0.8rem;cursor:pointer">取消</button></div>';
+          '<div style="display:flex;gap:0.5rem"><button class="btn-save-edit">ä¿å­</button><button class="btn-cancel-edit" style="padding:0.35rem 0.8rem;border-radius:6px;border:1px solid var(--rule);background:var(--bg);color:var(--muted);font-size:0.8rem;cursor:pointer">åæ¶</button></div>';
         info.appendChild(row);
         row.querySelector(".btn-save-edit").addEventListener("click", function () {
           var newDate = row.querySelector(".edit-date").value;
@@ -363,7 +437,7 @@
     renderList();
   }
 
-  /* ===== 管理模式：日常点滴 ===== */
+  /* ===== ç®¡çæ¨¡å¼ï¼æ¥å¸¸ç¹æ»´ ===== */
 
   function initMemoryAdmin() {
     var titleInput = document.getElementById("memTitle");
@@ -382,7 +456,7 @@
         var imgHtml = item.image ? '<img src="' + item.image + '" alt="">' : '';
         el.innerHTML =
           '<div class="admin-item-info"><h4>' + escHtml(item.title) + '</h4><p>' + escHtml(item.text) + '</p>' + imgHtml + '</div>' +
-          '<div class="admin-item-actions"><button class="btn-edit" data-id="' + item.id + '">编辑</button><button class="btn-delete" data-id="' + item.id + '">删除</button></div>';
+          '<div class="admin-item-actions"><button class="btn-edit" data-id="' + item.id + '">ç¼è¾</button><button class="btn-delete" data-id="' + item.id + '">å é¤</button></div>';
         list.appendChild(el);
       });
     }
@@ -420,7 +494,7 @@
           '<input type="text" value="' + escHtml(item.title) + '" class="edit-title">' +
           '<textarea class="edit-text">' + escHtml(item.text) + '</textarea>' +
           '<input type="file" accept="image/*" class="edit-image">' +
-          '<div style="display:flex;gap:0.5rem"><button class="btn-save-edit">保存</button><button class="btn-cancel-edit" style="padding:0.35rem 0.8rem;border-radius:6px;border:1px solid var(--rule);background:var(--bg);color:var(--muted);font-size:0.8rem;cursor:pointer">取消</button></div>';
+          '<div style="display:flex;gap:0.5rem"><button class="btn-save-edit">ä¿å­</button><button class="btn-cancel-edit" style="padding:0.35rem 0.8rem;border-radius:6px;border:1px solid var(--rule);background:var(--bg);color:var(--muted);font-size:0.8rem;cursor:pointer">åæ¶</button></div>';
         info.appendChild(row);
         row.querySelector(".btn-save-edit").addEventListener("click", async function () {
           var newTitle = row.querySelector(".edit-title").value.trim();
@@ -441,7 +515,7 @@
     renderList();
   }
 
-  /* ===== 管理模式：时间线 ===== */
+  /* ===== ç®¡çæ¨¡å¼ï¼æ¶é´çº¿ ===== */
 
   function initTimelineAdmin() {
     var dateInput = document.getElementById("tlDate");
@@ -459,8 +533,8 @@
         var el = document.createElement("div");
         el.className = "admin-item";
         el.innerHTML =
-          '<div class="admin-item-info"><h4>' + escHtml(item.title) + '</h4><p>' + fmtDisplay(item.date) + ' — ' + escHtml(item.text) + '</p></div>' +
-          '<div class="admin-item-actions"><button class="btn-edit" data-id="' + item.id + '">编辑</button><button class="btn-delete" data-id="' + item.id + '">删除</button></div>';
+          '<div class="admin-item-info"><h4>' + escHtml(item.title) + '</h4><p>' + fmtDisplay(item.date) + ' â ' + escHtml(item.text) + '</p></div>' +
+          '<div class="admin-item-actions"><button class="btn-edit" data-id="' + item.id + '">ç¼è¾</button><button class="btn-delete" data-id="' + item.id + '">å é¤</button></div>';
         list.appendChild(el);
       });
     }
@@ -495,7 +569,7 @@
           '<input type="date" value="' + item.date + '" class="edit-date">' +
           '<input type="text" value="' + escHtml(item.title) + '" class="edit-title">' +
           '<textarea class="edit-text">' + escHtml(item.text) + '</textarea>' +
-          '<div style="display:flex;gap:0.5rem"><button class="btn-save-edit">保存</button><button class="btn-cancel-edit" style="padding:0.35rem 0.8rem;border-radius:6px;border:1px solid var(--rule);background:var(--bg);color:var(--muted);font-size:0.8rem;cursor:pointer">取消</button></div>';
+          '<div style="display:flex;gap:0.5rem"><button class="btn-save-edit">ä¿å­</button><button class="btn-cancel-edit" style="padding:0.35rem 0.8rem;border-radius:6px;border:1px solid var(--rule);background:var(--bg);color:var(--muted);font-size:0.8rem;cursor:pointer">åæ¶</button></div>';
         info.appendChild(row);
         row.querySelector(".btn-save-edit").addEventListener("click", function () {
           var newDate = row.querySelector(".edit-date").value;
@@ -513,7 +587,7 @@
     renderList();
   }
 
-  /* ===== 管理模式：愿望清单 ===== */
+  /* ===== ç®¡çæ¨¡å¼ï¼æ¿ææ¸å ===== */
 
   function initWishAdmin() {
     var titleInput = document.getElementById("wishTitle");
@@ -528,11 +602,11 @@
       items.forEach(function (item) {
         var el = document.createElement("div");
         el.className = "admin-item";
-        var doneLabel = item.done ? "未完成" : "已完成";
+        var doneLabel = item.done ? "æªå®æ" : "å·²å®æ";
         var doneClass = item.done ? "btn-done" : "";
         el.innerHTML =
-          '<div class="admin-item-info"><h4>' + (item.done ? '<span style="text-decoration:line-through;opacity:0.6">' + escHtml(item.title) + '</span>' : escHtml(item.title)) + '</h4><p>' + escHtml(item.note) + (item.done ? ' (已完成)' : '') + '</p></div>' +
-          '<div class="admin-item-actions"><button class="' + doneClass + '" data-action="toggle" data-id="' + item.id + '">' + doneLabel + '</button><button class="btn-edit" data-id="' + item.id + '">编辑</button><button class="btn-delete" data-id="' + item.id + '">删除</button></div>';
+          '<div class="admin-item-info"><h4>' + (item.done ? '<span style="text-decoration:line-through;opacity:0.6">' + escHtml(item.title) + '</span>' : escHtml(item.title)) + '</h4><p>' + escHtml(item.note) + (item.done ? ' (å·²å®æ)' : '') + '</p></div>' +
+          '<div class="admin-item-actions"><button class="' + doneClass + '" data-action="toggle" data-id="' + item.id + '">' + doneLabel + '</button><button class="btn-edit" data-id="' + item.id + '">ç¼è¾</button><button class="btn-delete" data-id="' + item.id + '">å é¤</button></div>';
         list.appendChild(el);
       });
     }
@@ -577,7 +651,7 @@
         row.innerHTML =
           '<input type="text" value="' + escHtml(item.title) + '" class="edit-title">' +
           '<input type="text" value="' + escHtml(item.note) + '" class="edit-note">' +
-          '<div style="display:flex;gap:0.5rem"><button class="btn-save-edit">保存</button><button class="btn-cancel-edit" style="padding:0.35rem 0.8rem;border-radius:6px;border:1px solid var(--rule);background:var(--bg);color:var(--muted);font-size:0.8rem;cursor:pointer">取消</button></div>';
+          '<div style="display:flex;gap:0.5rem"><button class="btn-save-edit">ä¿å­</button><button class="btn-cancel-edit" style="padding:0.35rem 0.8rem;border-radius:6px;border:1px solid var(--rule);background:var(--bg);color:var(--muted);font-size:0.8rem;cursor:pointer">åæ¶</button></div>';
         info.appendChild(row);
         row.querySelector(".btn-save-edit").addEventListener("click", function () {
           var newTitle = row.querySelector(".edit-title").value.trim();
@@ -594,15 +668,13 @@
     renderList();
   }
 
-  /* ===== 管理模式：云同步 ===== */
+  /* ===== ç®¡çæ¨¡å¼ï¼äºåæ­¥ ===== */
 
   function initCloudSyncAdmin() {
-    var urlInput = document.getElementById("cloudUrl");
-    var keyInput = document.getElementById("cloudKey");
-    var saveBtn = document.getElementById("saveCloudConfig");
-    var testBtn = document.getElementById("testCloudConfig");
-    var pullBtn = document.getElementById("pullCloudData");
-    var pushBtn = document.getElementById("pushCloudData");
+    /* --- åç«¯éæ©åæ¢ --- */
+    var backendSel = document.getElementById("cloudBackend");
+    var fbWrap = document.getElementById("fbConfigWrap");
+    var sbWrap = document.getElementById("sbConfigWrap");
     var statusEl = document.getElementById("cloudStatus");
     var exportBtn = document.getElementById("exportData");
     var importInput = document.getElementById("importData");
@@ -613,45 +685,100 @@
       statusEl.style.color = ok ? "var(--ok)" : "#e05555";
     }
 
-    function loadConfig() {
+    function switchBackendUI(val) {
+      if (fbWrap) fbWrap.style.display = val === "firebase" ? "block" : "none";
+      if (sbWrap) sbWrap.style.display = val === "supabase" ? "block" : "none";
+    }
+
+    if (backendSel) {
+      backendSel.addEventListener("change", function () {
+        switchBackendUI(backendSel.value);
+      });
+      switchBackendUI(backendSel.value);
+    }
+
+    /* --- Firebase --- */
+    var fbUrlInput = document.getElementById("cloudUrl");
+    var fbKeyInput = document.getElementById("cloudKey");
+    var fbSaveBtn = document.getElementById("saveCloudConfig");
+    var fbTestBtn = document.getElementById("testCloudConfig");
+
+    function loadFbConfig() {
       var c = CloudSync.getConfig();
-      if (urlInput) urlInput.value = c.url || "";
-      if (keyInput) keyInput.value = c.key || "";
-      if (CloudSync.isReady()) {
-        showStatus("已配置，数据会自动同步到云端", true);
-      } else {
-        showStatus("尚未配置云同步", false);
-      }
+      if (fbUrlInput) fbUrlInput.value = c.url || "";
+      if (fbKeyInput) fbKeyInput.value = c.key || "";
     }
 
-    if (saveBtn) {
-      saveBtn.addEventListener("click", function () {
-        CloudSync.setConfig({ url: (urlInput.value || "").trim(), key: (keyInput.value || "").trim() });
-        loadConfig();
+    if (fbSaveBtn) {
+      fbSaveBtn.addEventListener("click", function () {
+        CloudSync.setConfig({ url: (fbUrlInput.value || "").trim(), key: (fbKeyInput.value || "").trim() });
+        showStatus("Firebase éç½®å·²ä¿å­", true);
       });
     }
-
-    if (testBtn) {
-      testBtn.addEventListener("click", function () {
-        if (!CloudSync.isReady()) { showStatus("请先填写数据库地址和配对密钥", false); return; }
-        showStatus("正在测试连接...", true);
+    if (fbTestBtn) {
+      fbTestBtn.addEventListener("click", function () {
+        if (!CloudSync.isReady()) { showStatus("è¯·åå¡«å Firebase æ°æ®åºå°ååéå¯¹å¯é¥", false); return; }
+        showStatus("æ­£å¨æµè¯ Firebase è¿æ¥...", true);
         CloudSync.fetchJson(CloudSync.getUrl(""), { method: "GET" })
-          .then(function () { showStatus("连接成功！", true); })
-          .catch(function () { showStatus("连接失败，请检查地址和密钥", false); });
+          .then(function () { showStatus("Firebase è¿æ¥æåï¼", true); })
+          .catch(function () { showStatus("Firebase è¿æ¥å¤±è´¥ï¼è¯·æ£æ¥å°ååå¯é¥", false); });
       });
     }
+
+    /* --- Supabase --- */
+    var sbUrlInput = document.getElementById("sbUrl");
+    var sbKeyInput = document.getElementById("sbKey");
+    var sbPairInput = document.getElementById("sbPairKey");
+    var sbSaveBtn = document.getElementById("saveSbConfig");
+    var sbTestBtn = document.getElementById("testSbConfig");
+
+    function loadSbConfig() {
+      var c = SupabaseSync.getConfig();
+      if (sbUrlInput) sbUrlInput.value = c.url || "";
+      if (sbKeyInput) sbKeyInput.value = c.key || "";
+      if (sbPairInput) sbPairInput.value = c.pairKey || "";
+    }
+
+    if (sbSaveBtn) {
+      sbSaveBtn.addEventListener("click", function () {
+        SupabaseSync.setConfig({
+          url: (sbUrlInput.value || "").trim(),
+          key: (sbKeyInput.value || "").trim(),
+          pairKey: (sbPairInput.value || "").trim()
+        });
+        showStatus("Supabase éç½®å·²ä¿å­", true);
+      });
+    }
+    if (sbTestBtn) {
+      sbTestBtn.addEventListener("click", function () {
+        if (!SupabaseSync.isReady()) { showStatus("è¯·åå¡«å Supabase é¡¹ç®å°åãanon key åéå¯¹å¯é¥", false); return; }
+        showStatus("æ­£å¨æµè¯ Supabase è¿æ¥...", true);
+        SupabaseSync.pull()
+          .then(function (data) { showStatus("Supabase è¿æ¥æåï¼" + (data ? " å·²è¯»åäºç«¯æ°æ®" : " äºç«¯ææ æ°æ®"), true); })
+          .catch(function () { showStatus("Supabase è¿æ¥å¤±è´¥ï¼è¯·æ£æ¥éç½®", false); });
+      });
+    }
+
+    /* --- æå¨åæ­¥ --- */
+    var pullBtn = document.getElementById("pullCloudData");
+    var pushBtn = document.getElementById("pushCloudData");
 
     if (pullBtn) {
       pullBtn.addEventListener("click", function () {
-        if (!CloudSync.isReady()) { showStatus("请先配置云同步", false); return; }
-        showStatus("正在从云端拉取数据...", true);
-        CloudSync.pull().then(function (data) {
-          if (data) {
-            showStatus("拉取成功，页面已更新", true);
+        var ready = CloudSync.isReady() || SupabaseSync.isReady();
+        if (!ready) { showStatus("è¯·åéç½®äºåæ­¥", false); return; }
+        showStatus("æ­£å¨ä»äºç«¯æåæ°æ®...", true);
+        var promises = [];
+        if (CloudSync.isReady()) promises.push(CloudSync.pull());
+        if (SupabaseSync.isReady()) promises.push(SupabaseSync.pull());
+        Promise.all(promises).then(function (results) {
+          var hasData = results.some(function (r) { return !!r; });
+          if (hasData) {
+            showStatus("æåæåï¼é¡µé¢å·²æ´æ°", true);
             updateTogether();
             renderAnniversaryPage(); renderMemoriesPage(); renderTimelinePage(); renderWishlistPage();
           } else {
-            showStatus("云端暂无数据或拉取失败", false);
+            showStatus("äºç«¯ææ æ°æ®ææåå¤±è´¥", false);
           }
         });
       });
@@ -659,14 +786,20 @@
 
     if (pushBtn) {
       pushBtn.addEventListener("click", function () {
-        if (!CloudSync.isReady()) { showStatus("请先配置云同步", false); return; }
-        showStatus("正在推送到云端...", true);
-        CloudSync.push().then(function (ok) {
-          showStatus(ok ? "推送成功" : "推送失败", ok);
+        var ready = CloudSync.isReady() || SupabaseSync.isReady();
+        if (!ready) { showStatus("è¯·åéç½®äºåæ­¥", false); return; }
+        showStatus("æ­£å¨æ¨éå°äºç«¯...", true);
+        var promises = [];
+        if (CloudSync.isReady()) promises.push(CloudSync.push());
+        if (SupabaseSync.isReady()) promises.push(SupabaseSync.push());
+        Promise.all(promises).then(function (results) {
+          var allOk = results.every(function (r) { return r; });
+          showStatus(allOk ? "æ¨éæå" : "é¨åæ¨éå¤±è´¥", allOk);
         });
       });
     }
 
+    /* --- å¯¼åºå¯¼å¥ --- */
     if (exportBtn) {
       exportBtn.addEventListener("click", function () {
         var data = {
@@ -680,9 +813,9 @@
         var blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
         var a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = "couple-data-" + formatDate(new Date()) + ".json";
+        a.download = "couple-data-" + new Date().toISOString().slice(0, 10) + ".json";
         a.click();
-        showStatus("数据已导出到下载文件夹", true);
+        showStatus("æ°æ®å·²å¯¼åºå°ä¸è½½æä»¶å¤¹", true);
       });
     }
 
@@ -702,9 +835,10 @@
             updateTogether();
             renderAnniversaryPage(); renderMemoriesPage(); renderTimelinePage(); renderWishlistPage();
             CloudSync.push().catch(function () {});
-            showStatus("数据导入成功", true);
+            SupabaseSync.push().catch(function () {});
+            showStatus("æ°æ®å¯¼å¥æå", true);
           } catch (e) {
-            showStatus("导入失败，文件格式不正确", false);
+            showStatus("å¯¼å¥å¤±è´¥ï¼æä»¶æ ¼å¼ä¸æ­£ç¡®", false);
           }
         };
         reader.readAsText(file);
@@ -712,10 +846,16 @@
       });
     }
 
-    loadConfig();
+    loadFbConfig();
+    loadSbConfig();
+    if (CloudSync.isReady() || SupabaseSync.isReady()) {
+      showStatus("å·²éç½®äºåæ­¥ï¼æ°æ®ä¼èªå¨ä¿å­å°äºç«¯", true);
+    } else {
+      showStatus("å°æªéç½®äºåæ­¥", false);
+    }
   }
 
-  /* ===== 视图切换 ===== */
+  /* ===== è§å¾åæ¢ ===== */
 
   function initViews() {
     var validViews = Array.prototype.map.call(document.querySelectorAll(".view"), function (v) { return v.id; });
@@ -726,6 +866,9 @@
       document.querySelectorAll(".view").forEach(function (v) { v.classList.toggle("active", v.id === viewId); });
       document.querySelectorAll('.links a[href^="#"]').forEach(function (l) { l.classList.toggle("active", l.getAttribute("href") === "#" + viewId); });
       window.scrollTo({ top: 0, behavior: "smooth" });
+      if (viewId === "journal") {
+        renderAdminLists();
+      }
     }
 
     navLinks.forEach(function (link) {
@@ -743,28 +886,92 @@
     showView(window.location.hash.replace("#", "") || "home");
   }
 
-  /* ===== 主题 ===== */
+  function renderAdminLists() {
+    renderAnnList(); renderMemList(); renderTlList(); renderWishList();
+  }
+
+  function renderAnnList() {
+    var list = document.getElementById("adminAnnList");
+    if (!list) return;
+    var items = getAnniversaries();
+    list.innerHTML = "";
+    items.forEach(function (item) {
+      var el = document.createElement("div");
+      el.className = "admin-item";
+      el.innerHTML =
+        '<div class="admin-item-info"><h4>' + escHtml(item.title) + '</h4><p>' + fmtDisplay(item.date) + '</p></div>' +
+        '<div class="admin-item-actions"><button class="btn-delete" data-section="ann" data-id="' + item.id + '">å é¤</button></div>';
+      list.appendChild(el);
+    });
+  }
+
+  function renderMemList() {
+    var list = document.getElementById("adminMemList");
+    if (!list) return;
+    var items = getMemories();
+    list.innerHTML = "";
+    items.forEach(function (item) {
+      var el = document.createElement("div");
+      el.className = "admin-item";
+      el.innerHTML =
+        '<div class="admin-item-info"><h4>' + escHtml(item.title) + '</h4><p>' + escHtml(item.text) + '</p></div>' +
+        '<div class="admin-item-actions"><button class="btn-delete" data-section="mem" data-id="' + item.id + '">å é¤</button></div>';
+      list.appendChild(el);
+    });
+  }
+
+  function renderTlList() {
+    var list = document.getElementById("adminTlList");
+    if (!list) return;
+    var items = getTimeline();
+    list.innerHTML = "";
+    items.forEach(function (item) {
+      var el = document.createElement("div");
+      el.className = "admin-item";
+      el.innerHTML =
+        '<div class="admin-item-info"><h4>' + escHtml(item.title) + '</h4><p>' + fmtDisplay(item.date) + ' â ' + escHtml(item.text) + '</p></div>' +
+        '<div class="admin-item-actions"><button class="btn-delete" data-section="tl" data-id="' + item.id + '">å é¤</button></div>';
+      list.appendChild(el);
+    });
+  }
+
+  function renderWishList() {
+    var list = document.getElementById("adminWishList");
+    if (!list) return;
+    var items = getWishes();
+    list.innerHTML = "";
+    items.forEach(function (item) {
+      var el = document.createElement("div");
+      el.className = "admin-item";
+      el.innerHTML =
+        '<div class="admin-item-info"><h4>' + escHtml(item.title) + (item.done ? ' (å·²å®æ)' : '') + '</h4><p>' + escHtml(item.note) + '</p></div>' +
+        '<div class="admin-item-actions"><button class="btn-delete" data-section="wish" data-id="' + item.id + '">å é¤</button></div>';
+      list.appendChild(el);
+    });
+  }
+
+  /* ===== ä¸»é¢ ===== */
 
   function initTheme() {
     var button = document.getElementById("themeToggle");
     var saved = localStorage.getItem("couple-theme");
     if (saved === "night") {
       document.body.classList.add("night");
-      if (button) button.textContent = "日间模式";
+      if (button) button.textContent = "æ¥é´æ¨¡å¼";
     }
     if (button) {
       button.addEventListener("click", function () {
         document.body.classList.toggle("night");
         var isNight = document.body.classList.contains("night");
         localStorage.setItem("couple-theme", isNight ? "night" : "day");
-        button.textContent = isNight ? "日间模式" : "夜间模式";
+        button.textContent = isNight ? "æ¥é´æ¨¡å¼" : "å¤é´æ¨¡å¼";
       });
     }
   }
 
-  /* ===== 初始化 ===== */
+  /* ===== åå§å ===== */
 
-  CloudSync.pull().then(function () {
+  Promise.all([CloudSync.pull(), SupabaseSync.pull()]).then(function () {
     updateTogether();
     renderAnniversaryPage();
     renderMemoriesPage();
